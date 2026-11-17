@@ -107,6 +107,7 @@ canvas.bad-frog{animation:badPuff .8s}@keyframes badPuff{30%,65%{transform:scale
 .ans .tile{background:#e8a33a;color:#3b2604;box-shadow:0 3px 0 #a8690f}
 .ans .tile.badpos{background:#e0564f;color:#fff;box-shadow:0 3px 0 #9b2c26}
 .tile.fly{transition:transform .28s ease}
+.tile{touch-action:none;-webkit-user-select:none;user-select:none}.tile.dragging{position:relative;z-index:20;transition:none;box-shadow:0 10px 18px rgba(0,0,0,.35);transform-origin:center}
 .smsg{display:table;margin:10px auto 0;padding:7px 16px;border-radius:999px;background:rgba(30,24,16,.72);text-align:center;font-weight:800;font-size:17px;color:#fff}.smsg:empty{background:none;padding:0;min-height:34px}
 .okline{font-size:24px;font-weight:800;color:#14532d;padding:6px 4px}
 .shipbox{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:3;pointer-events:none}
@@ -273,7 +274,7 @@ canvas.bad-frog{animation:badPuff .8s}@keyframes badPuff{30%,65%{transform:scale
  <div id="sfield">
   <canvas id="sbg"></canvas>
   <div class="swrap">
-   <div class="qcard"><div class="qhint">把字塊排成正確的英文句子</div><div class="qzh" id="qzh"></div><button class="qspk" id="qspk" aria-label="再唸一次">🔊</button></div>
+   <div class="qcard"><div class="qhint">點字塊放進答案；按住拖曳可以調整順序</div><div class="qzh" id="qzh"></div><button class="qspk" id="qspk" aria-label="再唸一次">🔊</button></div>
    <div class="ans" id="ans"></div>
    <div class="smsg" id="smsg"></div>
    <div class="pool" id="pool"></div>
@@ -609,17 +610,40 @@ function flip(b,dest){const r0=b.getBoundingClientRect();dest.appendChild(b);con
 function clearMarks(){$('#ans').querySelectorAll('.badpos').forEach(x=>x.classList.remove('badpos'));$('#smsg').textContent='';}
 function updCheck(){$('#sCheck').disabled=!S.cur.done&&$('#ans').querySelectorAll('.tile').length<S.cur.toks.length;}
 function updCombo(){$('#sship').classList.toggle('combo',S.combo>=3);$('#scombo').textContent=S.combo>=3?`🔥 連對 ${S.combo}`:'';}
-$('#pool').onclick=e=>{const b=e.target.closest('.tile');if(!b||!S||S.cur.done||b._mv)return;b._mv=1;
+$('#pool').onclick=e=>{const b=e.target.closest('.tile');if(!b||!S||S.cur.done||b._mv)return;if(b._dragged){b._dragged=0;return;}b._mv=1;
   const f=$('#sfield').getBoundingClientRect(),r=b.getBoundingClientRect(),[sx,sy]=shipPos();shotFx(S.fx,S.shipT,sx,sy,r.left-f.left+r.width/2,r.top-f.top+r.height/2);
   const sb=$('#sship');sb.style.marginBottom='-4px';setTimeout(()=>sb.style.marginBottom='0',70);
   setTimeout(()=>{b._mv=0;flip(b,$('#ans'));clearMarks();updCheck();},120);};
-$('#ans').onclick=e=>{const b=e.target.closest('.tile');if(!b||!S||S.cur.done)return;flip(b,$('#pool'));clearMarks();updCheck();};
+$('#ans').onclick=e=>{const b=e.target.closest('.tile');if(!b||!S||S.cur.done)return;if(b._dragged){b._dragged=0;return;}flip(b,$('#pool'));clearMarks();updCheck();};
+/* 拖曳調整順序 */
+let DG=null;
+function natRect(b){const t=b.style.transform;b.style.transform='none';const r=b.getBoundingClientRect();b.style.transform=t;return r;}
+function dgPlace(x,y){const b=DG.b;const hit=document.elementsFromPoint(x,y).filter(el=>el!==b&&!b.contains(el));
+  const tile=hit.map(el=>el.closest&&el.closest('.tile')).find(t=>t&&t!==b);const ans=$('#ans'),pool=$('#pool');
+  if(tile){const r=tile.getBoundingClientRect();const after=x>r.left+r.width/2;const par=tile.parentElement;
+    if(after){if(tile.nextSibling!==b)par.insertBefore(b,tile.nextSibling);}else if(tile.previousSibling!==b)par.insertBefore(b,tile);}
+  else if(hit.some(el=>el===ans||ans.contains(el))){const ts=[...ans.querySelectorAll('.tile')].filter(t=>t!==b);
+    if(!ts.length){if(b.parentElement!==ans)ans.appendChild(b);}
+    else{let best=null,bd=1e9;ts.forEach(t=>{const r=t.getBoundingClientRect();const dy=y<r.top?r.top-y:y>r.bottom?y-r.bottom:0;const dx=Math.abs(x-(r.left+r.width/2));const d=dy*4+dx;if(d<bd){bd=d;best=t;}});
+      const r=best.getBoundingClientRect();if(x>r.left+r.width/2){if(best.nextSibling!==b)ans.insertBefore(b,best.nextSibling);}else if(best.previousSibling!==b)ans.insertBefore(b,best);}}
+  else if(hit.some(el=>el===pool||pool.contains(el))){if(b.parentElement!==pool)pool.appendChild(b);}
+  const n=natRect(b);b.style.transform=`translate(${x-DG.ox-n.left}px,${y-DG.oy-n.top}px) scale(1.08)`;}
+$('.swrap').addEventListener('pointerdown',e=>{const b=e.target.closest('.tile');if(!b||!S||S.cur.done||b._mv)return;
+  const r=b.getBoundingClientRect();DG={b,x0:e.clientX,y0:e.clientY,ox:e.clientX-r.left,oy:e.clientY-r.top,on:false,from:b.parentElement.id};
+  try{b.setPointerCapture(e.pointerId);}catch(_){} });
+window.addEventListener('pointermove',e=>{if(!DG)return;if(!DG.on){if(Math.hypot(e.clientX-DG.x0,e.clientY-DG.y0)<8)return;DG.on=true;DG.b.classList.remove('fly');DG.b.classList.add('dragging');}
+  e.preventDefault();dgPlace(e.clientX,e.clientY);},{passive:false});
+function dgEnd(){if(!DG)return;const d=DG;DG=null;if(!d.on)return;const b=d.b;b._dragged=1;setTimeout(()=>{b._dragged=0;},400);
+  b.classList.remove('dragging');const r0=b.getBoundingClientRect(),n=natRect(b);b.style.transform=`translate(${r0.left-n.left}px,${r0.top-n.top}px)`;void b.offsetWidth;b.classList.add('fly');b.style.transform='';
+  if(d.from==='pool'&&b.parentElement.id==='ans'){const f=$('#sfield').getBoundingClientRect(),[sx,sy]=shipPos();shotFx(S.fx,S.shipT,sx,sy,n.left-f.left+n.width/2,n.top-f.top+n.height/2);}
+  clearMarks();updCheck();}
+window.addEventListener('pointerup',dgEnd);window.addEventListener('pointercancel',dgEnd);
 $('#qspk').onclick=()=>{if(S&&S.cur)Speech.say(S.cur.q.en,1);};
 $('#sCheck').onclick=()=>{if(!S)return;if(S.cur.done){S.i++;nextQ();return;}
   const placed=[...$('#ans').querySelectorAll('.tile')],want=S.cur.toks.map(t=>t.text);let bad=0;
   placed.forEach((b,i)=>{if(b.dataset.t!==want[i]){b.classList.add('badpos');bad++;}});const [sx,sy]=shipPos();
   if(bad){if(!S.cur.err){S.cur.err=true;S.missed.set(S.cur.q.en,{en:S.cur.q.en,zh:S.cur.q.zh});}S.combo=0;updCombo();
-    $('#smsg').textContent=`有 ${bad} 個位置不對，點紅色字塊拿回去重排`;react($('#sship canvas'),S.shipT,'bad',S.fx,sx,sy);return;}
+    $('#smsg').textContent=`有 ${bad} 個位置不對，把紅色字塊拖到正確位置`;react($('#sship canvas'),S.shipT,'bad',S.fx,sx,sy);return;}
   S.cur.done=true;if(!S.cur.err){S.points++;S.combo++;}updCombo();$('#spts').textContent=S.points;
   const ans=$('#ans');ans.className='ans ok';ans.innerHTML=`<div class="okline">${esc(S.cur.q.en)}</div>`;
   $('#smsg').textContent=S.cur.err?'✓ 排對了！（這題不計分）':'🎉 答對了！+1';react($('#sship canvas'),S.shipT,'ok',S.fx,sx,sy);
