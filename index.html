@@ -9,6 +9,7 @@
 <style>
 :root{--bg:#f6f1e7;--card:#fffdf8;--ink:#3a3226;--mute:#8a7f6e;--line:#e6dccb;--teal:#1f8a78;--teal-d:#14695b;--teal-l:#dff1ec;--amber:#e8a33a;--amber-d:#a8690f;--amber-l:#fbefd9;--red:#e0564f;--r:14px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
 html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;overscroll-behavior:none}
 body{touch-action:manipulation;-webkit-user-select:none;user-select:none}
 input{-webkit-user-select:text;user-select:text}
@@ -110,6 +111,62 @@ canvas.bad-frog{animation:badPuff .8s}@keyframes badPuff{30%,65%{transform:scale
 .tile{touch-action:none;-webkit-user-select:none;user-select:none}.tile.dragging{position:relative;z-index:20;transition:none;box-shadow:0 10px 18px rgba(0,0,0,.35);transform-origin:center}
 .smsg{display:table;margin:10px auto 0;padding:7px 16px;border-radius:999px;background:rgba(30,24,16,.72);text-align:center;font-weight:800;font-size:17px;color:#fff}.smsg:empty{background:none;padding:0;min-height:34px}
 .okline{font-size:24px;font-weight:800;color:#14532d;padding:6px 4px}
+.fc.up.sel .ft{border-color:var(--teal);background:#dff1ec;transform:rotateY(180deg) scale(1.05)}
+.fc.solo .in{transition:none}
+.fc.gone{visibility:hidden}
+.fc.hintp .ft{animation:hintp .9s}
+@keyframes hintp{0%,100%{box-shadow:none}30%,70%{box-shadow:0 0 0 6px #fde047}}
+.fplayers{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.fplayers .pl{background:rgba(255,253,248,.92);border-radius:999px;padding:6px 14px;font-weight:800;font-size:16px;border:3px solid transparent}
+.fplayers .pl.turn{border-color:var(--amber);background:#fff4d6}
+.fplayers .pl.off{opacity:.45}
+.rin{flex:1;min-height:52px;border-radius:12px;border:1.5px solid var(--line);padding:0 14px;font-size:24px;letter-spacing:6px;text-align:center;background:var(--card)}
+.rcode{font-size:64px;font-weight:800;letter-spacing:10px;color:var(--teal-d);line-height:1.1}
+.g4{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.xfield{position:relative;flex:1;overflow:hidden}
+.xbg{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
+.xwrap{position:relative;z-index:2;height:100%;overflow-y:auto;padding:14px 14px 40px;max-width:820px;margin:0 auto}
+.fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:10px}
+.fc{position:relative;aspect-ratio:5/4;perspective:700px;background:none;padding:0}
+.fc .in{position:absolute;inset:0;transition:transform .35s;transform-style:preserve-3d}
+.fc.up .in,.fc.done .in{transform:rotateY(180deg)}
+.fc .fa{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;align-items:center;justify-content:center;text-align:center;padding:6px;font-weight:800;line-height:1.15}
+.fc .bk{background:repeating-linear-gradient(45deg,#1f8a78 0 10px,#24a08b 10px 20px);border:3px solid #fffdf8;color:#fffdf8;font-size:30px;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.fc .ft{background:#fffdf8;border:3px solid #e8a33a;color:#3a3226;transform:rotateY(180deg);font-size:clamp(17px,3.2vw,28px);word-break:break-word}
+.fc .ft.zh{font-size:clamp(17px,3vw,26px);color:#7a4a0a}
+.fc.done .ft{background:#dff1ec;border-color:#1f8a78;animation:pop .4s}
+.fc.done{opacity:.85}
+.fc.wrong .ft{border-color:var(--red);animation:shk .4s}
+@keyframes pop{50%{transform:rotateY(180deg) scale(1.12)}}
+.pcard{background:rgba(255,253,248,.95);border-radius:18px;padding:18px 16px;text-align:center}
+.pzh{font-size:22px;font-weight:700;color:var(--mute);min-height:8px}
+.pword{font-size:clamp(48px,10vw,76px);font-weight:800;letter-spacing:2px;color:#3a3226;font-family:ui-rounded,system-ui,sans-serif}
+.pword .gap{display:inline-block;min-width:1.4em;border-bottom:6px solid var(--amber);color:transparent;margin:0 4px}
+.pword .hl{color:var(--teal);border-bottom:6px solid var(--teal)}
+.popts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+.popt{min-height:96px;border-radius:16px;background:#fffdf8;box-shadow:0 4px 0 #c9bfae;font-size:clamp(30px,6vw,44px);font-weight:800;color:#3a3226;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.popt small{font-size:17px;font-weight:700;color:var(--red)}
+.popt.bad{background:#fde3e1;box-shadow:0 4px 0 #e0564f;animation:shk .4s}
+.popt.ok{background:#dff1ec;box-shadow:0 4px 0 #1f8a78;color:var(--teal-d)}
+.gift{position:fixed;inset:0;z-index:50;background:rgba(20,16,10,.7);display:none;align-items:center;justify-content:center;padding:20px}
+.gift.on{display:flex}
+.gpanel{position:relative;background:var(--card);border-radius:22px;padding:26px 22px;width:min(440px,100%);text-align:center;overflow:visible}
+.gtitle{font-size:24px;font-weight:800;color:var(--teal-d)}
+.gbox{font-size:120px;line-height:1.1;background:none;margin:12px auto 4px;display:block;animation:wob 1.6s infinite}
+.gbox.shake{animation:gshake .6s}
+.gbox.open{animation:none;transform:scale(1.1)}
+@keyframes wob{0%,80%,100%{transform:rotate(0)}85%{transform:rotate(-8deg)}90%{transform:rotate(8deg)}95%{transform:rotate(-4deg)}}
+@keyframes gshake{20%{transform:rotate(-14deg) scale(1.05)}40%{transform:rotate(12deg) scale(1.1)}60%{transform:rotate(-10deg) scale(1.15)}80%{transform:rotate(6deg) scale(1.2)}}
+.gsub{font-size:18px;font-weight:700;color:var(--ink);min-height:50px;line-height:1.5}
+.gsub b{color:var(--amber-d);font-size:26px}
+.gfly{position:absolute;left:50%;top:42%;width:0;height:0;pointer-events:none}
+.gfly span{position:absolute;font-size:40px;left:-20px;top:-20px;animation:fly 1.3s cubic-bezier(.2,.8,.3,1) forwards}
+@keyframes fly{0%{transform:translate(0,0) scale(.3);opacity:0}15%{opacity:1}100%{transform:translate(var(--x),var(--y)) scale(1.1) rotate(var(--r));opacity:0}}
+.skb{margin-top:12px;background:rgba(233,226,212,.95);border-radius:14px;padding:8px 6px}
+.bline{font-size:23px;font-weight:700;color:#3a3226;line-height:1.9;padding:4px 6px;background:rgba(255,253,248,.95);border-radius:12px;width:100%}
+.bline .bw{display:inline-block;font-family:ui-monospace,Menlo,Consolas,monospace;margin:0 2px}
+.bline .sl{color:#3a3226}.bline .sl.ok{color:#1f8a78}
+.qzh.dict{font-size:20px;color:var(--teal-d)}
 .shipbox{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:3;pointer-events:none}
 .combo-tag{font-weight:800;color:var(--amber-d)}
 .card{position:absolute;left:0;top:0;will-change:transform}
@@ -209,7 +266,7 @@ canvas.bad-frog{animation:badPuff .8s}@keyframes badPuff{30%,65%{transform:scale
 <!-- 首頁 -->
 <div id="s-home" class="screen">
  <div class="wrap">
-  <div class="preview-tag pv" hidden>預覽模式：資料只存在這台裝置，正式版會存到老師的試算表</div>
+  <div class="preview-tag pv" hidden>預覽模式：資料只存在這台裝置，正式版會存到老師的試算表　<button class="chip" id="bGiftPv" style="min-height:30px;font-size:13px">預覽月初禮物箱</button></div>
   <div class="brand">單字獵人 <small>Word Hunter</small></div>
   <div class="top">
    <div class="me"><span class="av" id="hAv"></span><b id="hName"></b></div>
@@ -222,16 +279,22 @@ canvas.bad-frog{animation:badPuff .8s}@keyframes badPuff{30%,65%{transform:scale
   <div class="chips" id="units"></div>
 
   <h2>題型</h2>
-  <div class="row">
+  <div class="g4">
    <button class="opt on" id="gWord"><b>單字掉落拼字</b><span>看中文、聽發音，拼出單字</span></button>
    <button class="opt" id="gSent"><b>重組句子</b><span>看中文，把英文字塊排成句子</span></button>
+   <button class="opt" id="gFlip"><b>翻牌配對</b><span>英文和中文配成一對，翻到英文會唸出來</span></button>
+   <button class="opt" id="gPhon"><b>自然發音</b><span>聽單字，選出正確的字母組合</span></button>
   </div>
 
   <h2>模式</h2>
   <div class="row">
    <button class="opt" data-mode="hint"><b>提示模式</b><span id="mdHint"></span></button>
    <button class="opt" data-mode="normal"><b>正常模式</b><span id="mdNormal"></span></button>
+   <button class="opt" data-mode="dict"><b>聽寫模式</b><span id="mdDict"></span></button>
   </div>
+
+  <div id="fkWrap" hidden><h2>翻牌玩法</h2>
+  <div class="seg" id="fkind"><button data-fk="solo">單人練習</button><button data-fk="multi">多人連線對戰</button></div></div>
 
   <div id="speedWrap"><h2>掉落速度</h2>
   <div class="seg" id="speeds"><button data-sp="slow">慢</button><button data-sp="mid">中</button><button data-sp="fast">快</button></div></div>
@@ -243,7 +306,7 @@ canvas.bad-frog{animation:badPuff .8s}@keyframes badPuff{30%,65%{transform:scale
    <button class="btn ghost" id="bRank">🏆 排行榜</button>
    <button class="btn ghost" id="bOut" style="flex:.6">登出</button>
   </div>
-  <p class="sub" style="margin-top:16px;font-size:13px">每題第一次就拼對得 1 積分；一局全部第一次就對，得 1 枚金幣<br>一局最多 30 題、5 顆心</p>
+  <p class="sub" style="margin-top:16px;font-size:13px">每題第一次就答對得 1 積分；一局全部第一次就對，得 1 枚金幣（每個單元每天最多 5 枚）<br>每月 1 日結算：前三名得 3 枚金幣、從 0 分開始，其他人從 10 分開始</p>
  </div>
 </div>
 
@@ -279,10 +342,88 @@ canvas.bad-frog{animation:badPuff .8s}@keyframes badPuff{30%,65%{transform:scale
    <div class="smsg" id="smsg"></div>
    <div class="pool" id="pool"></div>
    <div style="margin-top:14px"><button class="btn big" id="sCheck">檢查答案</button></div>
+   <div id="skb" class="skb" hidden></div>
   </div>
   <div class="shipbox" id="sship"><canvas></canvas></div>
   <canvas id="sfx"></canvas>
   <div class="ov" id="sOv"><div class="panel"><h2 style="margin-top:0">要離開嗎？</h2><div style="display:flex;flex-direction:column;gap:10px"><button class="btn big" id="sResume">繼續作答</button><button class="btn ghost" id="sLeave">離開這一局（不計分）</button></div></div></div>
+ </div>
+</div>
+
+<!-- 翻牌配對 -->
+<div id="s-flip" class="screen">
+ <div class="gbar">
+  <span id="fprog"></span><span class="sp"></span><span>⭐ <span id="fpts">0</span></span>
+  <button id="fMute" aria-label="聲音">🔊</button><button id="fQuit" aria-label="離開">✕</button>
+ </div>
+ <div id="ffield" class="xfield">
+  <canvas class="xbg" id="fbg"></canvas>
+  <div class="xwrap">
+   <div class="fplayers" id="fplayers" hidden></div>
+   <div class="smsg" id="fmsg"></div>
+   <div class="fgrid" id="fgrid"></div>
+  </div>
+  <div class="ov" id="fOv"><div class="panel"><h2 style="margin-top:0">要離開嗎？</h2><div style="display:flex;flex-direction:column;gap:10px"><button class="btn big" id="fResume">繼續</button><button class="btn ghost" id="fLeave">離開這一局（不計分）</button></div></div></div>
+ </div>
+</div>
+
+<!-- 翻牌對戰房間 -->
+<div id="s-room" class="screen">
+ <div class="wrap">
+  <div class="top"><button class="btn ghost" id="rBack">← 返回</button></div>
+  <h1 style="margin:12px 0 4px">🃏 翻牌連線對戰</h1>
+  <p class="sub" style="text-align:left;margin:0 0 14px">輪流翻牌，配對成功得 1 積分並可以再翻一次；翻錯不扣分。分數會加進本月積分（翻牌不給金幣）</p>
+  <div id="rEntry">
+   <div class="panel"><h2 style="margin-top:0">建立房間</h2><p class="sub" style="text-align:left;margin:0 0 10px">用首頁選好的單元和模式出題，建好後把房號告訴同學</p><button class="btn big" id="rCreate">建立房間</button></div>
+   <div class="panel" style="margin-top:12px"><h2 style="margin-top:0">加入房間</h2><div class="row"><input id="rCode" class="rin" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="輸入 4 位數房號"><button class="btn" id="rJoin" style="flex:none;min-width:100px">加入</button></div></div>
+  </div>
+  <div id="rLobby" hidden>
+   <div class="panel" style="text-align:center"><div style="color:var(--mute);font-weight:700">房號</div><div class="rcode" id="rCodeShow"></div><div style="color:var(--mute);font-size:14px">最多 4 人</div></div>
+   <h2>玩家</h2>
+   <div class="panel" style="padding:6px 12px"><ul class="wl" id="rPlayers"></ul></div>
+   <p class="sub" id="rWait"></p>
+   <button class="btn big" id="rStart" hidden>開始對戰</button>
+  </div>
+  <div id="rEnd" hidden>
+   <h2 id="rEndTitle">對戰結束！</h2>
+   <div class="panel" style="padding:6px 12px"><ul class="wl" id="rRank"></ul></div>
+   <p class="sub" id="rEndNote"></p>
+   <button class="btn big" id="rHome">回首頁</button>
+  </div>
+  <p class="err" id="rErr" style="color:var(--red);font-weight:700;text-align:center"></p>
+ </div>
+</div>
+
+<!-- 自然發音 -->
+<div id="s-phon" class="screen">
+ <div class="gbar">
+  <span id="pprog"></span><span id="pcombo" class="combo-tag"></span><span class="sp"></span><span>⭐ <span id="ppts">0</span></span>
+  <button id="pMute" aria-label="聲音">🔊</button><button id="pQuit" aria-label="離開">✕</button>
+ </div>
+ <div id="pfield" class="xfield">
+  <canvas class="xbg" id="pbg"></canvas>
+  <div class="xwrap">
+   <div class="pcard">
+    <div class="pzh" id="pzh"></div>
+    <div class="pword" id="pword"></div>
+    <button class="btn ghost" id="pspk" style="margin-top:10px">🔊 再聽一次</button>
+   </div>
+   <div class="smsg" id="pmsg"></div>
+   <div class="popts" id="popts"></div>
+   <div style="margin-top:16px"><button class="btn big" id="pNext" hidden>下一題 →</button></div>
+  </div>
+  <div class="ov" id="pOv"><div class="panel"><h2 style="margin-top:0">要離開嗎？</h2><div style="display:flex;flex-direction:column;gap:10px"><button class="btn big" id="pResume">繼續</button><button class="btn ghost" id="pLeave">離開這一局（不計分）</button></div></div></div>
+ </div>
+</div>
+
+<!-- 月初禮物箱 -->
+<div class="gift" id="giftOv">
+ <div class="gpanel">
+  <div class="gtitle" id="gTitle">新的月份開始了！</div>
+  <button class="gbox" id="gBox" aria-label="打開禮物">🎁</button>
+  <div class="gsub" id="gSub">點禮物箱打開</div>
+  <div class="gfly" id="gFly"></div>
+  <button class="btn big" id="gOk" hidden>收下禮物</button>
  </div>
 </div>
 
@@ -295,7 +436,7 @@ canvas.bad-frog{animation:badPuff .8s}@keyframes badPuff{30%,65%{transform:scale
    <div class="stat"><b id="ePts">+0</b><span>本局積分</span></div>
    <div class="stat"><b id="eFirst">0/0</b><span>第一次就拼對</span></div>
    <div class="stat gold"><b id="eCoin">+0</b><span>金幣</span></div>
-   <div class="stat"><b id="eTotal">0</b><span>累積積分</span></div>
+   <div class="stat"><b id="eTotal">0</b><span>本月積分</span></div>
   </div>
   <h2 id="eWlTitle">需要再練習的單字</h2>
   <div class="panel" style="padding:6px 12px"><ul class="wl" id="eWl"></ul></div>
@@ -309,6 +450,7 @@ canvas.bad-frog{animation:badPuff .8s}@keyframes badPuff{30%,65%{transform:scale
 <div id="s-shop" class="screen">
  <div class="wrap">
   <div class="top"><button class="btn ghost" id="bBack1">← 返回</button><span class="sp" style="flex:1"></span><span class="pill">🪙 <span id="sCoins">0</span></span></div>
+  <p class="sub" style="text-align:left;margin:6px 0 0">每買一件外觀，下一件就多 2 枚金幣，買越多越貴</p>
   <h2>射擊本體 <small style="color:var(--mute);font-weight:400;font-size:13px">題卡樣式會跟著換</small></h2>
   <div class="grid" id="shop-ship"></div>
   <h2>背景</h2>
@@ -320,7 +462,8 @@ canvas.bad-frog{animation:badPuff .8s}@keyframes badPuff{30%,65%{transform:scale
 <div id="s-rank" class="screen">
  <div class="wrap">
   <div class="top"><button class="btn ghost" id="bBack2">← 返回</button><span style="flex:1"></span><button class="btn ghost" id="bRefresh">重新整理</button></div>
-  <h2>🏆 積分排行榜</h2>
+  <h2>🏆 本月積分排行</h2>
+  <p class="sub" style="text-align:left;margin:-4px 0 12px">每月 1 日積分歸零，上個月前三名（同分都算）各得 3 枚金幣</p>
   <div class="panel" style="padding:6px 10px"><ul class="rk" id="rk"><li>載入中…</li></ul></div>
  </div>
 </div>
@@ -345,19 +488,148 @@ function emsg(e){ return (e && e.message) ? e.message.replace(/^Error:\s*/,'') :
 const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
 
 /* 預覽模式用的假資料（正式版改由試算表提供） */
+/* ---------- 翻牌對戰房間（前後端共用同一份規則） ---------- */
+function roomEngine_(io) {
+  const MAXP = 4, PAIRS = 8, IDLE = 25000, HIDE = 1400;
+  const shuf = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; };
+  const must = code => { const st = io.get(String(code)); if (!st) throw new Error('找不到這個房間，房號對嗎？'); return st; };
+  const active = st => st.players.filter(p => !p.left);
+  function nextTurn(st) {
+    const n = st.players.length;
+    for (let k = 1; k <= n; k++) { const j = (st.turn + k) % n; if (!st.players[j].left) { st.turn = j; return; } }
+  }
+  function finish(st) {
+    st.status = 'end'; st.open = []; st.hideAt = 0;
+    if (!st.credited) { st.credited = true; try { io.credit(st); } catch (e) { st.creditErr = String(e && e.message || e); } }
+  }
+  function tick(st) {
+    if (st.status !== 'play') return false;
+    let ch = false;
+    const t = io.now();
+    if (st.hideAt && t >= st.hideAt) { st.open = []; st.hideAt = 0; nextTurn(st); ch = true; }
+    const cur = st.players[st.turn];
+    if (cur && !st.hideAt && (cur.left || io.beatAge(st.code, cur.name) > IDLE)) {
+      if (!cur.left && io.beatAge(st.code, cur.name) > IDLE) cur.away = true;
+      st.open = []; nextTurn(st); ch = true;
+    }
+    if (st.status === 'play' && active(st).length < 2) { finish(st); ch = true; }
+    if (ch) st.ver++;
+    return ch;
+  }
+  return {
+    create(p, units, mode) {
+      const seen = {};
+      const ws = shuf(io.words(units).filter(w => { const k = String(w.en).toLowerCase(); if (seen[k]) return false; seen[k] = 1; return true; })).slice(0, PAIRS);
+      if (ws.length < 3) throw new Error('選的單元單字太少（至少要 3 個）');
+      const cards = [];
+      ws.forEach((w, i) => { cards.push({ p: i, s: 'en', en: w.en, zh: w.zh, d: 0 }); cards.push({ p: i, s: 'zh', en: w.en, zh: w.zh, d: 0 }); });
+      let code = '';
+      for (let i = 0; i < 60 && !code; i++) { const c = String(1000 + Math.floor(Math.random() * 9000)); if (!io.get(c)) code = c; }
+      if (!code) throw new Error('房間太多了，等一下再試');
+      const st = { code: code, host: p.name, mode: mode || 'normal', status: 'wait', players: [{ name: p.name, avatar: p.avatar, score: 0 }],
+        cards: shuf(cards), open: [], turn: 0, ver: 1, hideAt: 0, last: null, credited: false };
+      io.beat(code, p.name); io.put(code, st);
+      return st;
+    },
+    join(p, code) {
+      const st = must(code);
+      const me = st.players.find(x => x.name === p.name);
+      if (me) { me.left = false; me.away = false; }
+      else {
+        if (st.status !== 'wait') throw new Error('這一局已經開始了');
+        if (st.players.length >= MAXP) throw new Error('房間已經滿了（最多 ' + MAXP + ' 人）');
+        st.players.push({ name: p.name, avatar: p.avatar, score: 0 });
+      }
+      st.ver++; io.beat(st.code, p.name); io.put(st.code, st);
+      return st;
+    },
+    start(p, code) {
+      const st = must(code);
+      if (st.host !== p.name) throw new Error('只有房主可以開始');
+      if (st.status !== 'wait') return st;
+      if (active(st).length < 2) throw new Error('至少要 2 個人才能開始');
+      st.players = active(st);
+      st.status = 'play'; st.turn = Math.floor(Math.random() * st.players.length); st.ver++;
+      io.put(st.code, st);
+      return st;
+    },
+    peek(code, name) {
+      const st = must(code);
+      if (name) io.beat(st.code, name);
+      return st;
+    },
+    needsTick(st) {
+      if (st.status !== 'play') return false;
+      const cur = st.players[st.turn];
+      return !!((st.hideAt && io.now() >= st.hideAt) || (cur && !st.hideAt && (cur.left || io.beatAge(st.code, cur.name) > IDLE)) || active(st).length < 2);
+    },
+    tickSave(code) { const st = must(code); if (tick(st)) io.put(st.code, st); return st; },
+    flip(p, code, i) {
+      const st = must(code);
+      io.beat(st.code, p.name);
+      tick(st);
+      if (st.status !== 'play') { io.put(st.code, st); return st; }
+      const me = st.players[st.turn];
+      if (!me || me.name !== p.name) throw new Error('還沒輪到你');
+      me.away = false;
+      i = Number(i);
+      const c = st.cards[i];
+      if (!c || c.d || st.hideAt || st.open.indexOf(i) >= 0 || st.open.length >= 2) return st;
+      st.open.push(i);
+      st.last = { i: i, v: st.ver + 1 };
+      if (st.open.length === 2) {
+        const a = st.cards[st.open[0]], b = st.cards[st.open[1]];
+        if (a.p === b.p && a.s !== b.s) {
+          a.d = b.d = 1; me.score++; st.open = [];
+          st.match = { name: me.name, p: a.p, v: st.ver + 1 };
+          if (st.cards.every(x => x.d)) finish(st);
+        } else st.hideAt = io.now() + HIDE;
+      }
+      st.ver++; io.put(st.code, st);
+      return st;
+    },
+    leave(p, code) {
+      const st = io.get(String(code));
+      if (!st) return null;
+      if (st.status === 'wait') {
+        st.players = st.players.filter(x => x.name !== p.name);
+        if (!st.players.length) { io.put(st.code, null); return null; }
+        if (st.host === p.name) st.host = st.players[0].name;
+      } else {
+        const me = st.players.find(x => x.name === p.name);
+        if (me) me.left = true;
+        tick(st);
+      }
+      st.ver++; io.put(st.code, st);
+      return st;
+    }
+  };
+}
+
 const Mock = (()=>{
   const words=[["Starter & Festival", "sixty", "六十"], ["Starter & Festival", "seventy", "七十"], ["Starter & Festival", "eighty", "八十"], ["Starter & Festival", "ninety", "九十"], ["Starter & Festival", "one hundred", "一百"], ["Starter & Festival", "bell", "鈴鐺"], ["Starter & Festival", "candy cane", "拐杖糖"], ["Starter & Festival", "Christmas tree", "聖誕樹"], ["Starter & Festival", "star", "星星"], ["Starter & Festival", "stocking", "聖誕襪"], ["Starter & Festival", "Santa Claus", "聖誕老人"], ["Unit 1 星期", "Sunday", "星期日"], ["Unit 1 星期", "Monday", "星期一"], ["Unit 1 星期", "Tuesday", "星期二"], ["Unit 1 星期", "Wednesday", "星期三"], ["Unit 1 星期", "Thursday", "星期四"], ["Unit 1 星期", "Friday", "星期五"], ["Unit 1 星期", "Saturday", "星期六"], ["Unit 2 科目", "art", "美術"], ["Unit 2 科目", "Chinese", "國語"], ["Unit 2 科目", "English", "英語"], ["Unit 2 科目", "math", "數學"], ["Unit 2 科目", "music", "音樂"], ["Unit 2 科目", "PE", "體育"], ["Unit 2 科目", "science", "自然"], ["Unit 2 科目", "social studies", "社會"], ["Unit 3 社區場所", "bank", "銀行"], ["Unit 3 社區場所", "bookstore", "書店"], ["Unit 3 社區場所", "hospital", "醫院"], ["Unit 3 社區場所", "library", "圖書館"], ["Unit 3 社區場所", "museum", "博物館"], ["Unit 3 社區場所", "park", "公園"], ["Unit 3 社區場所", "post office", "郵局"], ["Unit 3 社區場所", "supermarket", "超級市場"], ["Unit 4 動物", "elephant", "大象"], ["Unit 4 動物", "horse", "馬"], ["Unit 4 動物", "lion", "獅子"], ["Unit 4 動物", "monkey", "猴子"], ["Unit 4 動物", "tiger", "老虎"], ["Unit 4 動物", "turtle", "烏龜"], ["Unit 4 動物", "zebra", "斑馬"], ["Unit 4 動物", "koala", "無尾熊"]].map(([cat,en,zh])=>({cat,en,zh}));
-  const shop=[['ship_retro','復古小飛機','ship',0],['bg_retro','星空','bg',0],['ship_spider','小蜘蛛','ship',5],['bg_spider','夜晚花園','bg',3],['ship_fish','射水魚','ship',7],['bg_fish','紅樹林水面','bg',5],['ship_shrimp','螳螂蝦','ship',9],['bg_shrimp','珊瑚礁','bg',7],['ship_frog','青蛙','ship',11],['bg_frog','荷葉池塘','bg',9]].map(([id,name,type,price])=>({id,name,type,price,on:true}));
+  const shop=[['ship_retro','復古小飛機','ship',0],['bg_retro','星空','bg',0],['ship_spider','小蜘蛛','ship',5],['bg_spider','夜晚花園','bg',3],['ship_fish','射水魚','ship',5],['bg_fish','紅樹林水面','bg',3],['ship_shrimp','螳螂蝦','ship',5],['bg_shrimp','珊瑚礁','bg',3],['ship_frog','青蛙','ship',5],['bg_frog','荷葉池塘','bg',3]].map(([id,name,type,price])=>({id,name,type,price,on:true}));
   const db=()=>store.get('vq_mock')||{users:{}};
   const save=d=>store.set('vq_mock',d);
-  const prof=u=>({name:u.name,avatar:u.avatar,points:u.points,coins:u.coins,owned:u.owned.slice(),ship:u.ship,bg:u.bg});
+  const prof=u=>({name:u.name,avatar:u.avatar,points:u.points,coins:u.coins,owned:u.owned.slice(),ship:u.ship,bg:u.bg,gift:u.gift||null});
   const auth=(name,pin)=>{const d=db();const u=d.users[name];if(!u||u.pin!==String(pin))throw new Error('暱稱或密碼不對');return [d,u];};
   return {
-    getInit(){return {words,sentences:[{"cat": "Starter & Festival", "zh": "他正在桌子底下睡覺。", "en": "He's sleeping under the table.", "slots": ["", "", ""]}, {"cat": "Starter & Festival", "zh": "這是一個{1}。", "en": "This is a {1}.", "slots": ["bell=鈴鐺 / candy cane=拐杖糖 / Christmas tree=聖誕樹 / star=星星 / stocking=聖誕襪", "", ""]}, {"cat": "Starter & Festival", "zh": "我們來打開禮物吧。", "en": "Let's open the gifts.", "slots": ["", "", ""]}, {"cat": "Starter & Festival", "zh": "聖誕快樂！", "en": "Merry Christmas!", "slots": ["", "", ""]}, {"cat": "Unit 1 星期", "zh": "今天星期幾？", "en": "What day is today?", "slots": ["", "", ""]}, {"cat": "Unit 1 星期", "zh": "今天{1}。", "en": "It's {1}.", "slots": ["Unit 1 星期", "", ""]}, {"cat": "Unit 1 星期", "zh": "今天是{1}嗎？", "en": "Is it {1} today?", "slots": ["Unit 1 星期", "", ""]}, {"cat": "Unit 1 星期", "zh": "是的，沒錯。", "en": "Yes, it is.", "slots": ["", "", ""]}, {"cat": "Unit 1 星期", "zh": "不，不是。今天{1}。", "en": "No, it isn't. It's {1}.", "slots": ["Unit 1 星期", "", ""]}, {"cat": "Unit 2 科目", "zh": "你{1}有{2}課嗎？", "en": "Do you have {2} class on {1}?", "slots": ["Unit 1 星期", "Unit 2 科目", ""]}, {"cat": "Unit 2 科目", "zh": "是的，我有。", "en": "Yes, I do.", "slots": ["", "", ""]}, {"cat": "Unit 2 科目", "zh": "不，我沒有。", "en": "No, I don't.", "slots": ["", "", ""]}, {"cat": "Unit 2 科目", "zh": "{1}{2}有{3}課嗎？", "en": "Does {1} have {3} class on {2}?", "slots": ["he=他 / she=她", "Unit 1 星期", "Unit 2 科目"]}, {"cat": "Unit 2 科目", "zh": "是的，{1}有。", "en": "Yes, {1} does.", "slots": ["he=他 / she=她", "", ""]}, {"cat": "Unit 2 科目", "zh": "不，{1}沒有。", "en": "No, {1} doesn't.", "slots": ["he=他 / she=她", "", ""]}, {"cat": "Unit 3 社區場所", "zh": "你要去哪裡？", "en": "Where are you going?", "slots": ["", "", ""]}, {"cat": "Unit 3 社區場所", "zh": "我要去{1}。", "en": "I'm going to the {1}.", "slots": ["Unit 3 社區場所", "", ""]}, {"cat": "Unit 3 社區場所", "zh": "我們要去{1}。", "en": "We're going to the {1}.", "slots": ["Unit 3 社區場所", "", ""]}, {"cat": "Unit 3 社區場所", "zh": "{1}在哪裡？", "en": "Where's the {1}?", "slots": ["Unit 3 社區場所", "", ""]}, {"cat": "Unit 3 社區場所", "zh": "它在{1}上。", "en": "It's on {1}.", "slots": ["Blue Street=藍色街 / Red Street=紅色街 / Green Street=綠色街 / Park Street=公園街", "", ""]}, {"cat": "Unit 4 動物", "zh": "那裡有幾隻{1}？", "en": "How many {1} are there?", "slots": ["elephants=大象 / horses=馬 / lions=獅子 / monkeys=猴子 / tigers=老虎 / turtles=烏龜 / zebras=斑馬 / koalas=無尾熊", "", ""]}, {"cat": "Unit 4 動物", "zh": "那裡有一隻{1}。", "en": "There's one {1}.", "slots": ["Unit 4 動物", "", ""]}, {"cat": "Unit 4 動物", "zh": "那裡有{1}隻{2}。", "en": "There are {1} {2}.", "slots": ["two=兩 / three=三 / four=四 / five=五 / six=六 / seven=七 / eight=八 / nine=九 / ten=十", "elephants=大象 / horses=馬 / lions=獅子 / monkeys=猴子 / tigers=老虎 / turtles=烏龜 / zebras=斑馬 / koalas=無尾熊", ""]}, {"cat": "Unit 4 動物", "zh": "{1}喜歡{2}嗎？", "en": "Does {1} like {2}?", "slots": ["he=他 / she=她", "elephants=大象 / horses=馬 / lions=獅子 / monkeys=猴子 / tigers=老虎 / turtles=烏龜 / zebras=斑馬 / koalas=無尾熊", ""]}, {"cat": "Unit 4 動物", "zh": "是的，{1}喜歡。", "en": "Yes, {1} does.", "slots": ["he=他 / she=她", "", ""]}, {"cat": "Unit 4 動物", "zh": "不，{1}不喜歡。{1}喜歡{2}。", "en": "No, {1} doesn't. {1} likes {2}.", "slots": ["he=他 / she=她", "elephants=大象 / horses=馬 / lions=獅子 / monkeys=猴子 / tigers=老虎 / turtles=烏龜 / zebras=斑馬 / koalas=無尾熊", ""]}],shop};},
+    getInit(){return {priceStep:2,unitDailyCoins:5,phonics:[{"cat": "二合字母 sh ch th wh ph", "en": "ship", "zh": "船", "a": "sh", "o": ["ch", "s"]}, {"cat": "二合字母 sh ch th wh ph", "en": "shop", "zh": "商店", "a": "sh", "o": ["ch", "st"]}, {"cat": "二合字母 sh ch th wh ph", "en": "sheep", "zh": "綿羊", "a": "sh", "o": ["ch", "st"]}, {"cat": "二合字母 sh ch th wh ph", "en": "shell", "zh": "貝殼", "a": "sh", "o": ["s", "sp"]}, {"cat": "二合字母 sh ch th wh ph", "en": "fish", "zh": "魚", "a": "sh", "o": ["st", "t"]}, {"cat": "二合字母 sh ch th wh ph", "en": "chip", "zh": "薯片", "a": "ch", "o": ["sh", "d"]}, {"cat": "二合字母 sh ch th wh ph", "en": "chick", "zh": "小雞", "a": "ch", "o": ["th", "st"]}, {"cat": "二合字母 sh ch th wh ph", "en": "chin", "zh": "下巴", "a": "ch", "o": ["sh", "th"]}, {"cat": "二合字母 sh ch th wh ph", "en": "three", "zh": "三", "a": "th", "o": ["tr", "f"]}, {"cat": "二合字母 sh ch th wh ph", "en": "thin", "zh": "瘦的", "a": "th", "o": ["ch", "t"]}, {"cat": "二合字母 sh ch th wh ph", "en": "thick", "zh": "厚的", "a": "th", "o": ["ch", "st"]}, {"cat": "二合字母 sh ch th wh ph", "en": "think", "zh": "想", "a": "th", "o": ["s", "bl"]}, {"cat": "二合字母 sh ch th wh ph", "en": "bath", "zh": "洗澡", "a": "th", "o": ["t", "sh"]}, {"cat": "二合字母 sh ch th wh ph", "en": "math", "zh": "數學", "a": "th", "o": ["t", "sh"]}, {"cat": "二合字母 sh ch th wh ph", "en": "whale", "zh": "鯨魚", "a": "wh", "o": ["t", "sc"]}, {"cat": "二合字母 sh ch th wh ph", "en": "phone", "zh": "電話", "a": "ph", "o": ["b", "st"]}, {"cat": "長母音 ee ea oa ai ow", "en": "feet", "zh": "腳（複數）", "a": "ee", "o": ["i", "oo"]}, {"cat": "長母音 ee ea oa ai ow", "en": "tree", "zh": "樹", "a": "ee", "o": ["ay", "ue"]}, {"cat": "長母音 ee ea oa ai ow", "en": "green", "zh": "綠色", "a": "ee", "o": ["i", "oa"]}, {"cat": "長母音 ee ea oa ai ow", "en": "sleep", "zh": "睡覺", "a": "ee", "o": ["i", "a"]}, {"cat": "長母音 ee ea oa ai ow", "en": "sea", "zh": "海", "a": "ea", "o": ["ay", "o"]}, {"cat": "長母音 ee ea oa ai ow", "en": "eat", "zh": "吃", "a": "ea", "o": ["a", "oa"]}, {"cat": "長母音 ee ea oa ai ow", "en": "read", "zh": "讀", "a": "ea", "o": ["e", "oa"]}, {"cat": "長母音 ee ea oa ai ow", "en": "tea", "zh": "茶", "a": "ea", "o": ["oo", "ie"]}, {"cat": "長母音 ee ea oa ai ow", "en": "boat", "zh": "小船", "a": "oa", "o": ["ea", "u"]}, {"cat": "長母音 ee ea oa ai ow", "en": "coat", "zh": "外套", "a": "oa", "o": ["a", "u"]}, {"cat": "長母音 ee ea oa ai ow", "en": "rain", "zh": "雨", "a": "ai", "o": ["a", "u"]}, {"cat": "長母音 ee ea oa ai ow", "en": "town", "zh": "城鎮", "a": "ow", "o": ["ee", "e"]}, {"cat": "長母音 ee ea oa ai ow", "en": "down", "zh": "向下", "a": "ow", "o": ["aw", "e"]}, {"cat": "長母音 ee ea oa ai ow", "en": "brown", "zh": "棕色", "a": "ow", "o": ["ai", "a"]}, {"cat": "子音串 st bl cl fl gr…", "en": "star", "zh": "星星", "a": "st", "o": ["sc", "c"]}, {"cat": "子音串 st bl cl fl gr…", "en": "stop", "zh": "停止", "a": "st", "o": ["sh", "ch"]}, {"cat": "子音串 st bl cl fl gr…", "en": "nest", "zh": "鳥巢", "a": "st", "o": ["ck", "t"]}, {"cat": "子音串 st bl cl fl gr…", "en": "black", "zh": "黑色", "a": "bl", "o": ["sl", "tr"]}, {"cat": "子音串 st bl cl fl gr…", "en": "blue", "zh": "藍色", "a": "bl", "o": ["cl", "gl"]}, {"cat": "子音串 st bl cl fl gr…", "en": "clock", "zh": "時鐘", "a": "cl", "o": ["bl", "fl"]}, {"cat": "子音串 st bl cl fl gr…", "en": "flag", "zh": "旗子", "a": "fl", "o": ["dr", "br"]}, {"cat": "子音串 st bl cl fl gr…", "en": "frog", "zh": "青蛙", "a": "fr", "o": ["sm", "cl"]}, {"cat": "子音串 st bl cl fl gr…", "en": "grass", "zh": "草", "a": "gr", "o": ["cl", "gl"]}, {"cat": "子音串 st bl cl fl gr…", "en": "snake", "zh": "蛇", "a": "sn", "o": ["st", "br"]}, {"cat": "子音串 st bl cl fl gr…", "en": "swim", "zh": "游泳", "a": "sw", "o": ["sl", "tr"]}, {"cat": "子音串 st bl cl fl gr…", "en": "spoon", "zh": "湯匙", "a": "sp", "o": ["s", "m"]}, {"cat": "子音串 st bl cl fl gr…", "en": "train", "zh": "火車", "a": "tr", "o": ["dr", "br"]}, {"cat": "子音串 st bl cl fl gr…", "en": "play", "zh": "玩", "a": "pl", "o": ["cl", "gr"]}],words,sentences:[{"cat": "Starter & Festival", "zh": "他正在桌子底下睡覺。", "en": "He's sleeping under the table.", "slots": ["", "", ""]}, {"cat": "Starter & Festival", "zh": "這是一個{1}。", "en": "This is a {1}.", "slots": ["bell=鈴鐺 / candy cane=拐杖糖 / Christmas tree=聖誕樹 / star=星星 / stocking=聖誕襪", "", ""]}, {"cat": "Starter & Festival", "zh": "我們來打開禮物吧。", "en": "Let's open the gifts.", "slots": ["", "", ""]}, {"cat": "Starter & Festival", "zh": "聖誕快樂！", "en": "Merry Christmas!", "slots": ["", "", ""]}, {"cat": "Unit 1 星期", "zh": "今天星期幾？", "en": "What day is today?", "slots": ["", "", ""]}, {"cat": "Unit 1 星期", "zh": "今天{1}。", "en": "It's {1}.", "slots": ["Unit 1 星期", "", ""]}, {"cat": "Unit 1 星期", "zh": "今天是{1}嗎？", "en": "Is it {1} today?", "slots": ["Unit 1 星期", "", ""]}, {"cat": "Unit 1 星期", "zh": "是的，沒錯。", "en": "Yes, it is.", "slots": ["", "", ""]}, {"cat": "Unit 1 星期", "zh": "不，不是。今天{1}。", "en": "No, it isn't. It's {1}.", "slots": ["Unit 1 星期", "", ""]}, {"cat": "Unit 2 科目", "zh": "你{1}有{2}課嗎？", "en": "Do you have {2} class on {1}?", "slots": ["Unit 1 星期", "Unit 2 科目", ""]}, {"cat": "Unit 2 科目", "zh": "是的，我有。", "en": "Yes, I do.", "slots": ["", "", ""]}, {"cat": "Unit 2 科目", "zh": "不，我沒有。", "en": "No, I don't.", "slots": ["", "", ""]}, {"cat": "Unit 2 科目", "zh": "{1}{2}有{3}課嗎？", "en": "Does {1} have {3} class on {2}?", "slots": ["he=他 / she=她", "Unit 1 星期", "Unit 2 科目"]}, {"cat": "Unit 2 科目", "zh": "是的，{1}有。", "en": "Yes, {1} does.", "slots": ["he=他 / she=她", "", ""]}, {"cat": "Unit 2 科目", "zh": "不，{1}沒有。", "en": "No, {1} doesn't.", "slots": ["he=他 / she=她", "", ""]}, {"cat": "Unit 3 社區場所", "zh": "你要去哪裡？", "en": "Where are you going?", "slots": ["", "", ""]}, {"cat": "Unit 3 社區場所", "zh": "我要去{1}。", "en": "I'm going to the {1}.", "slots": ["Unit 3 社區場所", "", ""]}, {"cat": "Unit 3 社區場所", "zh": "我們要去{1}。", "en": "We're going to the {1}.", "slots": ["Unit 3 社區場所", "", ""]}, {"cat": "Unit 3 社區場所", "zh": "{1}在哪裡？", "en": "Where's the {1}?", "slots": ["Unit 3 社區場所", "", ""]}, {"cat": "Unit 3 社區場所", "zh": "它在{1}上。", "en": "It's on {1}.", "slots": ["Blue Street=藍色街 / Red Street=紅色街 / Green Street=綠色街 / Park Street=公園街", "", ""]}, {"cat": "Unit 4 動物", "zh": "那裡有幾隻{1}？", "en": "How many {1} are there?", "slots": ["elephants=大象 / horses=馬 / lions=獅子 / monkeys=猴子 / tigers=老虎 / turtles=烏龜 / zebras=斑馬 / koalas=無尾熊", "", ""]}, {"cat": "Unit 4 動物", "zh": "那裡有一隻{1}。", "en": "There's one {1}.", "slots": ["Unit 4 動物", "", ""]}, {"cat": "Unit 4 動物", "zh": "那裡有{1}隻{2}。", "en": "There are {1} {2}.", "slots": ["two=兩 / three=三 / four=四 / five=五 / six=六 / seven=七 / eight=八 / nine=九 / ten=十", "elephants=大象 / horses=馬 / lions=獅子 / monkeys=猴子 / tigers=老虎 / turtles=烏龜 / zebras=斑馬 / koalas=無尾熊", ""]}, {"cat": "Unit 4 動物", "zh": "{1}喜歡{2}嗎？", "en": "Does {1} like {2}?", "slots": ["he=他 / she=她", "elephants=大象 / horses=馬 / lions=獅子 / monkeys=猴子 / tigers=老虎 / turtles=烏龜 / zebras=斑馬 / koalas=無尾熊", ""]}, {"cat": "Unit 4 動物", "zh": "是的，{1}喜歡。", "en": "Yes, {1} does.", "slots": ["he=他 / she=她", "", ""]}, {"cat": "Unit 4 動物", "zh": "不，{1}不喜歡。{1}喜歡{2}。", "en": "No, {1} doesn't. {1} likes {2}.", "slots": ["he=他 / she=她", "elephants=大象 / horses=馬 / lions=獅子 / monkeys=猴子 / tigers=老虎 / turtles=烏龜 / zebras=斑馬 / koalas=無尾熊", ""]}],shop};},
     register(name,pin,avatar){name=String(name||'').trim();if(!name||name.length>8)throw new Error('暱稱要 1～8 個字');if(!/^\d{4}$/.test(pin))throw new Error('密碼要 4 位數字');const d=db();if(d.users[name])throw new Error('這個暱稱有人用了，換一個吧');d.users[name]={name,pin:String(pin),avatar,points:0,coins:20,owned:['ship_retro','bg_retro'],ship:'ship_retro',bg:'bg_retro'};save(d);return prof(d.users[name]);},
     login(name,pin){return prof(auth(String(name).trim(),pin)[1]);},
-    submitRound(name,pin,points,perfect){const [d,u]=auth(name,pin);const p=Math.max(0,Math.min(30,points|0));u.points+=p;if(perfect&&p>=10)u.coins+=1;save(d);return prof(u);},
-    buy(name,pin,id){const [d,u]=auth(name,pin);const it=shop.find(s=>s.id===id);if(!it)throw new Error('找不到這個商品');if(u.owned.includes(id))throw new Error('已經擁有了');if(u.coins<it.price)throw new Error('金幣不夠');u.coins-=it.price;u.owned.push(id);save(d);return prof(u);},
+    submitRound(name,pin,points,perfect,units){const [d,u]=auth(name,pin);const p=Math.max(0,Math.min(30,points|0));u.points+=p;let coinGot=false,coinCapped=false;
+      if(perfect&&p>=10){const day=new Date().toISOString().slice(0,10);d.log=d.log||{};const k=name+'|'+day;const L=d.log[k]=d.log[k]||{};const list=(units&&units.length)?units:['(未分類)'];
+        if(list.some(x=>(L[x]||0)<5)){coinGot=true;u.coins+=1;list.forEach(x=>L[x]=(L[x]||0)+1);}else coinCapped=true;}
+      save(d);return Object.assign(prof(u),{coinGot,coinCapped});},
+    buy(name,pin,id){const [d,u]=auth(name,pin);const it=shop.find(s=>s.id===id);if(!it)throw new Error('找不到這個商品');if(u.owned.includes(id))throw new Error('已經擁有了');const pr=it.price?it.price+2*u.owned.filter(x=>!['ship_retro','bg_retro'].includes(x)).length:0;if(u.coins<pr)throw new Error('金幣不夠');u.coins-=pr;u.owned.push(id);save(d);return prof(u);},
+    openGift(name,pin){const [d,u]=auth(name,pin);u.gift=null;save(d);return prof(u);},
+    pvGift(name,type){const d=db();const u=d.users[name];if(!u)return null;const pt=type==='pt';u.gift={month:'上個月',type:pt?'pt':'coin',rank:pt?0:1,amount:pt?10:3};if(pt)u.points=10;else{u.points=0;u.coins+=3;}save(d);return prof(u);},
+    ...(()=>{const io={get:c=>store.get('vq_room_'+c),put:(c,st)=>st?store.set('vq_room_'+c,st):store.del('vq_room_'+c),now:()=>Date.now(),
+        beat:(c,n)=>store.set('vq_beat_'+c+'_'+n,Date.now()),beatAge:(c,n)=>{const v=store.get('vq_beat_'+c+'_'+n);return v?Date.now()-v:1e9;},
+        words:units=>words.filter(w=>(units||[]).includes(w.cat)),credit:st=>{const d=db();st.players.forEach(pl=>{const u=d.users[pl.name];if(u)u.points+=pl.score;});save(d);}};
+      const E=()=>roomEngine_(io);const who=(n,pin)=>{const u=auth(String(n).trim(),pin)[1];return {name:u.name,avatar:u.avatar};};
+      return {roomCreate:(n,pin,units,mode)=>E().create(who(n,pin),units,mode),roomJoin:(n,pin,c)=>E().join(who(n,pin),c),roomStart:(n,pin,c)=>E().start(who(n,pin),c),
+        roomFlip:(n,pin,c,i)=>E().flip(who(n,pin),c,i),roomLeave:(n,pin,c)=>E().leave(who(n,pin),c),roomGet:(c,n)=>{const e=E();const st=e.peek(c,n);return e.needsTick(st)?e.tickSave(c):st;}};})(),
     equip(name,pin,id){const [d,u]=auth(name,pin);if(!u.owned.includes(id))throw new Error('還沒有這個外觀');if(id.startsWith('ship_'))u.ship=id;else u.bg=id;save(d);return prof(u);},
     getLeaderboard(){const d=db();const demo=[['小火龍','🦊',42],['跳跳虎','🐯',35],['安靜兔','🐰',27],['冰淇淋','🐧',18],['阿鈞','🐻',9]].map(([name,avatar,points])=>({name,avatar,points}));const real=Object.values(d.users).map(u=>({name:u.name,avatar:u.avatar,points:u.points}));return real.concat(demo).sort((a,b)=>b.points-a.points);}
   };
@@ -377,6 +649,7 @@ const Speech={on:true,voice:null,tok:0,
   pick(){if(!this.ok())return;const vs=speechSynthesis.getVoices();const en=v=>/^en[-_]US/i.test(v.lang);this.voice=vs.find(v=>en(v)&&/Samantha|Google US|Allison|Ava|Aaron|Nicky/i.test(v.name))||vs.find(en)||vs.find(v=>/^en/i.test(v.lang))||null;},
   unlock(){this.say('Ready',1);},
   stop(){this.tok++;if(this.ok())speechSynthesis.cancel();},
+  seq(list){if(!this.ok())return;const tok=++this.tok;speechSynthesis.cancel();let i=0;const one=()=>{if(tok!==this.tok||i>=list.length)return;const u=new SpeechSynthesisUtterance(list[i++]);u.lang='en-US';if(this.voice)u.voice=this.voice;u.rate=.8;u.onend=()=>setTimeout(one,550);speechSynthesis.speak(u);};setTimeout(one,120);},
   say(text,times=1){if(!this.ok())return;const tok=++this.tok;const busy=speechSynthesis.speaking||speechSynthesis.pending;if(busy)speechSynthesis.cancel();let n=0;
     const one=()=>{if(tok!==this.tok)return;const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(this.voice)u.voice=this.voice;u.rate=.8;
       u.onend=()=>{n++;if(n<times&&tok===this.tok)setTimeout(one,450);};speechSynthesis.speak(u);};
@@ -452,53 +725,62 @@ $('#bLogin').onclick=async()=>{const name=$('#iName').value.trim(),pin=$('#iPin'
 $('#bOut').onclick=()=>{store.del('vq_cred');ME=CRED=null;$('#iPin').value='';setRegMode(false);show('s-login');};
 
 /* ========== 首頁 ========== */
-const SET=Object.assign({units:[],mode:'hint',speed:'mid',game:'word'},store.get('vq_set')||{});
-const src=()=>SET.game==='sent'?BANK.sentences:BANK.words;
+const SET=Object.assign({units:[],mode:'hint',speed:'mid',game:'word',fk:'solo'},store.get('vq_set')||{});
+const src=()=>SET.game==='sent'?BANK.sentences:SET.game==='phon'?(BANK.phonics||[]):BANK.words;
 function unitList(){const m=new Map();src().forEach(w=>m.set(w.cat,(m.get(w.cat)||0)+1));return [...m];}
 function selUnits(){const av=unitList().map(([n])=>n);return SET.units.filter(u=>av.includes(u));}
-function goHome(){show('s-home');$('#hAv').textContent=ME.avatar;$('#hName').textContent=ME.name;$('#hPts').textContent=ME.points;$('#hCoins').textContent=ME.coins;
+function goHome(){show('s-home');if(ME&&ME.gift)showGift();$('#hAv').textContent=ME.avatar;$('#hName').textContent=ME.name;$('#hPts').textContent=ME.points;$('#hCoins').textContent=ME.coins;
   const units=unitList();const sel=selUnits();
-  $('#units').innerHTML=units.length?units.map(([n,c])=>`<button class="chip${sel.includes(n)?' on':''}" data-u="${esc(n)}">${esc(n)}<small>${c}</small></button>`).join(''):(SET.game==='sent'?'<span style="color:var(--mute)">題庫還沒有句子，請老師在試算表「句子」分頁新增</span>':'<span style="color:var(--mute)">題庫還沒有單字，請老師在試算表「單字」分頁新增</span>');
-  $('#gWord').classList.toggle('on',SET.game!=='sent');$('#gSent').classList.toggle('on',SET.game==='sent');$('#speedWrap').hidden=SET.game==='sent';
-  $('#mdHint').textContent=SET.game==='sent'?'保留大小寫，題目出現時先唸一次，答對再唸一次':'先給第一個字母，拼錯會淡淡顯示剩下的字母';
-  $('#mdNormal').textContent=SET.game==='sent'?'字塊全部小寫，答對後才變大寫並唸出來':'只有空格，拼錯也不提示';
+  $('#units').innerHTML=units.length?units.map(([n,c])=>`<button class="chip${sel.includes(n)?' on':''}" data-u="${esc(n)}">${esc(n)}<small>${c}</small></button>`).join(''):(SET.game==='sent'?'<span style="color:var(--mute)">題庫還沒有句子，請老師在試算表「句子」分頁新增</span>':SET.game==='phon'?'<span style="color:var(--mute)">還沒有發音題庫，請老師在 Apps Script 執行 upgradeV5</span>':'<span style="color:var(--mute)">題庫還沒有單字，請老師在試算表「單字」分頁新增</span>');
+  ['word','sent','flip','phon'].forEach(g=>$('#g'+g[0].toUpperCase()+g.slice(1)).classList.toggle('on',SET.game===g));$('#speedWrap').hidden=SET.game!=='word';$('#fkWrap').hidden=SET.game!=='flip';$('#fkind').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.fk===SET.fk));
+  $('#mdHint').textContent=SET.game==='sent'?'保留大小寫，先唸一次；1 個干擾字、2 題填空':'先給第一個字母，拼錯會淡淡顯示剩下的字母';
+  $('#mdNormal').textContent=SET.game==='sent'?'字塊全部小寫；3 個干擾字、3 題填空':'只有空格，拼錯也不提示';
+  $('#mdDict').textContent=SET.game==='sent'?'不顯示中文，聽句子排出來；3 個干擾字、4 題填空':'不顯示中文，只聽發音拼出單字';
+  const MD={flip:['開始前所有牌先翻開 4 秒，記住位置','直接開始翻牌，翻到英文會唸出來','英文牌只有 🎧，聽發音找出中文'],
+    phon:['顯示中文和單字，選出空格的發音','不顯示中文，只看單字選發音','只聽發音，從三個字裡選出聽到的']}[SET.game];
+  if(SET.game==='flip'&&SET.fk==='multi')MD.splice(0,3,'和正常模式一樣（連線對戰沒有提示）','輪流翻牌，翻到英文會唸出來','英文牌只有 🎧，聽發音找中文');
+  else if(SET.game==='flip')MD.splice(0,3,'牌全部翻開，點錯會閃一下正確的牌','牌全部翻開，點英文和中文配成一對就消除','英文牌只有 🎧，點了聽發音，找出中文');
+  if(MD){$('#mdHint').textContent=MD[0];$('#mdNormal').textContent=MD[1];$('#mdDict').textContent=MD[2];}
   document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===SET.mode));
   document.querySelectorAll('[data-sp]').forEach(b=>b.classList.toggle('on',b.dataset.sp===SET.speed));
   requestAnimationFrame(()=>drawScene($('#hEquip'),themeOf(ME.bg),themeOf(ME.ship),72));
   $('#hEquipTxt').innerHTML=`目前裝備<br>${THEMES[themeOf(ME.ship)].ship}・${THEMES[themeOf(ME.bg)].bg}`;
   updStart();}
 function saveSet(){store.set('vq_set',SET);}
-function updStart(){$('#bStart').disabled=!selUnits().length;}
+function updStart(){$('#bStart').disabled=!selUnits().length&&!(SET.game==='flip'&&SET.fk==='multi');}
+$('#fkind').onclick=e=>{const b=e.target.closest('[data-fk]');if(!b)return;SET.fk=b.dataset.fk;saveSet();goHome();};
 $('#units').onclick=e=>{const b=e.target.closest('[data-u]');if(!b)return;const u=b.dataset.u;const i=SET.units.indexOf(u);i<0?SET.units.push(u):SET.units.splice(i,1);b.classList.toggle('on',i<0);saveSet();updStart();};
 $('#bAll').onclick=()=>{const all=unitList().map(([n])=>n);const allOn=all.every(u=>SET.units.includes(u));SET.units=allOn?SET.units.filter(u=>!all.includes(u)):[...new Set(SET.units.concat(all))];saveSet();goHome();};
-$('#gWord').onclick=()=>{SET.game='word';saveSet();goHome();};$('#gSent').onclick=()=>{SET.game='sent';saveSet();goHome();};
+['word','sent','flip','phon'].forEach(g=>{$('#g'+g[0].toUpperCase()+g.slice(1)).onclick=()=>{SET.game=g;saveSet();goHome();};});
 document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{SET.mode=b.dataset.mode;saveSet();document.querySelectorAll('[data-mode]').forEach(x=>x.classList.toggle('on',x===b));});
 document.querySelectorAll('[data-sp]').forEach(b=>b.onclick=()=>{SET.speed=b.dataset.sp;saveSet();document.querySelectorAll('[data-sp]').forEach(x=>x.classList.toggle('on',x===b));});
-$('#bStart').onclick=()=>{Speech.pick();Speech.unlock();SET.game==='sent'?startSent():startGame();};
+const STARTERS={word:()=>startGame(),sent:()=>startSent(),flip:()=>SET.fk==='multi'?openRoom():startFlip(),phon:()=>startPhon()};
+$('#bStart').onclick=()=>{Speech.pick();Speech.unlock();(STARTERS[SET.game]||STARTERS.word)();};
 $('#bTest').onclick=()=>{if(!Speech.ok()){toast('這個瀏覽器不支援發音，請改用 Safari 或 Chrome 開啟');return;}Speech.pick();Speech.say('apple',1);};
 if(!Speech.ok()){$('#sndTip').textContent='⚠️ 這個瀏覽器不支援發音，請改用 Safari 或 Chrome 開啟';$('#sndTip').style.color='var(--red)';}
 
 /* ========== 鍵盤 ========== */
-(function(){const rows=['qwertyuiop','asdfghjkl','zxcvbnm'];const kb=$('#kb');
+function buildKb(kb,onKey,screen){const rows=['qwertyuiop','asdfghjkl','zxcvbnm'];
   rows.forEach((r,i)=>{const d=document.createElement('div');d.className='kr';if(i===1)d.innerHTML='<span class="half"></span>';
     d.innerHTML+= [...r].map(c=>`<button class="k" data-k="${c}">${c}</button>`).join('');if(i===1)d.innerHTML+='<span class="half"></span>';kb.appendChild(d);});
-  kb.addEventListener('pointerdown',e=>{const b=e.target.closest('[data-k]');if(!b)return;e.preventDefault();press(b.dataset.k,b);});
-  document.addEventListener('keydown',e=>{if(!$('#s-game').classList.contains('on'))return;const k=e.key.toLowerCase();if(/^[a-z]$/.test(k)){e.preventDefault();press(k,kb.querySelector(`[data-k="${k}"]`));}});
-})();
+  kb.addEventListener('pointerdown',e=>{const b=e.target.closest('[data-k]');if(!b)return;e.preventDefault();onKey(b.dataset.k,b);});
+  document.addEventListener('keydown',e=>{if(!$(screen).classList.contains('on')||kb.hidden)return;const k=e.key.toLowerCase();if(/^[a-z]$/.test(k)){e.preventDefault();onKey(k,kb.querySelector(`[data-k="${k}"]`));}});}
+buildKb($('#kb'),(k,b)=>press(k,b),'#s-game');
 function flashKey(b,cls){if(!b)return;b.classList.remove('ok','bad');void b.offsetWidth;b.classList.add(cls);setTimeout(()=>b.classList.remove(cls),180);}
 
 /* ========== 遊戲 ========== */
 let G=null;
-const SPEED={slow:16,mid:11,fast:8};
+const SPEED={slow:25,mid:20,fast:15};
+function syllables(en){return String(en).toLowerCase().split(/[^a-z]+/).filter(Boolean).reduce((n,w)=>{let c=(w.match(/[aeiouy]+/g)||[]).length;if(c>1&&/e$/.test(w)&&!/le$/.test(w))c--;return n+Math.max(1,c);},0);}
 const isL=ch=>/[a-z]/i.test(ch);
 const MAX_Q=30,MIN_Q=10,HEARTS=5;
-function buildQueue(){const pool=BANK.words.filter(w=>selUnits().includes(w.cat));if(!pool.length)return [];
+function buildQueue(list){const pool=(list||BANK.words).filter(w=>selUnits().includes(w.cat));if(!pool.length)return [];
   if(pool.length>=MIN_Q)return shuffle(pool.slice()).slice(0,MAX_Q);
   let q=[];while(q.length<MIN_Q){const s=shuffle(pool.slice());if(q.length&&s.length>1&&s[0]===q[q.length-1])s.push(s.shift());q=q.concat(s);}return q.slice(0,MIN_Q);}
 function startGame(){
   const shipT=themeOf(ME.ship),bgT=themeOf(ME.bg);
   const queue=buildQueue();if(!queue.length){toast('選的單元沒有單字');return;}
-  G={queue,N:queue.length,mode:SET.mode,fall:SPEED[SET.speed]||11,shipT,bgT,spawned:0,resolved:0,hearts:HEARTS,points:0,cards:[],lock:null,missed:new Map(),
+  G={queue,N:queue.length,units:selUnits(),mode:SET.mode,fall:SPEED[SET.speed]||20,shipT,bgT,spawned:0,resolved:0,hearts:HEARTS,points:0,cards:[],lock:null,missed:new Map(),
      running:false,paused:false,last:0,sinceSpawn:99,shipX:0,fx:[],quit:false};
   $('#cards').innerHTML='';show('s-game');
   requestAnimationFrame(()=>{layout();drawScene($('#bgc'),bgT,null,120);drawShip();updBar();
@@ -512,15 +794,15 @@ function drawShip(){const t=THEMES[G.shipT];const s=5;const cv=$('#shipc'),box=$
   cv.style.width=cv.width+'px';cv.style.height=cv.height+'px';box.style.width=cv.width+'px';box.style.height=cv.height+'px';box.style.top=(G.H-cv.height-12)+'px';G.shipW=cv.width;G.shipTop=G.H-cv.height-12;}
 function updBar(){$('#hearts').textContent='❤️'.repeat(G.hearts)+'🖤'.repeat(HEARTS-G.hearts);$('#gprog').textContent=`${Math.min(G.resolved+1,G.N)} / ${G.N}`;$('#gpts').textContent=G.points;$('#bMute').textContent=Speech.on?'🔊':'🔇';}
 function spawn(){const w=G.queue[G.spawned++];const el=document.createElement('div');el.className='card';
-  const ci=document.createElement('div');ci.className='ci t-'+G.shipT;ci.innerHTML=`<div class="zh">${esc(w.zh)}</div><div class="sls"></div>`;el.appendChild(ci);
+  const ci=document.createElement('div');ci.className='ci t-'+G.shipT;ci.innerHTML=`<div class="zh">${G.mode==='dict'?'🎧':esc(w.zh)}</div><div class="sls"></div>`;el.appendChild(ci);
   if(DECO[G.shipT]){const d=document.createElement('canvas');d.className='deco';const D=DECO[G.shipT];d.width=D.px[0].length*4;d.height=D.px.length*4;drawPx(d.getContext('2d'),D.px,D.pal,4);ci.appendChild(d);}
   $('#cards').appendChild(el);
-  const c={w,el,ci,sl:ci.querySelector('.sls'),chars:[...w.en],pos:0,err:false,reveal:false,done:false,y:0,x:0};
+  const c={w,el,ci,sl:ci.querySelector('.sls'),chars:[...w.en],pos:0,err:false,reveal:false,done:false,y:0,x:0,fall:G.fall+(syllables(w.en)>=3?1.5:0)};
   c.first=c.chars.findIndex(isL);skip(c);render(c);
   c.wd=el.offsetWidth;c.h=el.offsetHeight;
   let tries=0;do{c.x=8+Math.random()*Math.max(1,G.W-c.wd-16);tries++;}while(tries<8&&G.cards.some(o=>!o.done&&o.y<c.h*1.6&&Math.abs(o.x-c.x)<c.wd));
   c.y=-c.h;el.style.transform=`translate(${c.x}px,${c.y}px)`;
-  el.addEventListener('pointerdown',e=>{e.preventDefault();if(!c.done&&G.lock!==c)setLock(c);});
+  el.addEventListener('pointerdown',e=>{e.preventDefault();if(c.done)return;if(G.lock!==c)setLock(c);else if(Speech.on)Speech.say(c.w.en,1);});
   G.cards.push(c);}
 function skip(c){while(c.pos<c.chars.length&&!isL(c.chars[c.pos]))c.pos++;}
 function render(c){let h='';c.chars.forEach((ch,i)=>{
@@ -530,7 +812,7 @@ function render(c){let h='';c.chars.forEach((ch,i)=>{
   else if(G.mode==='hint'&&(c.reveal||i===c.first))h+=`<span class="sl ft${i===c.pos&&G.lock===c?' cur':''}">${esc(ch)}</span>`;
   else h+=`<span class="sl${i===c.pos&&G.lock===c?' cur':''}">&nbsp;</span>`;});c.sl.innerHTML=h;}
 function setLock(c){const old=G.lock;G.lock=c;if(old&&!old.done){old.el.classList.remove('lock');render(old);}
-  if(c){c.el.classList.add('lock');render(c);$('#lockinfo').textContent=`正在拼：${c.w.zh}`;if(Speech.on)Speech.say(c.w.en,2);}else $('#lockinfo').textContent='點題卡可以切換要拼的字';}
+  if(c){c.el.classList.add('lock');render(c);$('#lockinfo').textContent=G.mode==='dict'?'🎧 聽發音拼出來（點題卡可以再聽一次）':`正在拼：${c.w.zh}`;if(Speech.on)Speech.say(c.w.en,2);}else $('#lockinfo').textContent='點題卡可以切換要拼的字';}
 function autoLock(){const live=G.cards.filter(c=>!c.done);if(!live.length){if(G.lock)setLock(null);return;}live.sort((a,b)=>b.y-a.y);setLock(live[0]);}
 function press(k,btn){if(!G||!G.running||G.paused)return;const c=G.lock;if(!c||c.done)return;
   const exp=c.chars[c.pos].toLowerCase();
@@ -542,11 +824,11 @@ function win(c){c.done=true;G.resolved++;if(!c.err)G.points++;c.el.classList.rem
 function fail(c){c.done=true;G.resolved++;G.hearts--;miss(c.w);c.el.classList.remove('lock');c.el.classList.add('gone');setTimeout(()=>c.el.remove(),300);
   G.cards=G.cards.filter(o=>o!==c);react($('#shipc'),G.shipT,'bad',G.fx,G.shipX,G.shipTop);const rl=$('#redline');rl.classList.add('hit');setTimeout(()=>rl.classList.remove('hit'),350);
   if(G.lock===c){G.lock=null;autoLock();}updBar();checkEnd();}
-function checkEnd(){if(G.hearts<=0||G.resolved>=G.N){G.running=false;G.cards.forEach(c=>miss(c.w));Speech.stop();setTimeout(()=>{if(!G.quit)endGame({kind:'word',title:G.hearts>0?'完成！':'結束',points:G.points,N:G.N,missed:[...G.missed.values()]});},650);}}
+function checkEnd(){if(G.hearts<=0||G.resolved>=G.N){G.running=false;G.cards.forEach(c=>miss(c.w));Speech.stop();setTimeout(()=>{if(!G.quit)endGame({kind:'word',units:G.units,title:G.hearts>0?'完成！':'結束',points:G.points,N:G.N,missed:[...G.missed.values()]});},650);}}
 function loop(t){if(!G||!G.running)return;const dt=Math.min(.05,(t-G.last)/1000);G.last=t;
   if(!G.paused){const v=G.lineY/G.fall;G.sinceSpawn+=dt;const live=G.cards.length;
     if(G.spawned<G.N&&live<3&&(live===0||G.sinceSpawn>=G.fall*.42)){spawn();G.sinceSpawn=0;}
-    for(const c of G.cards.slice()){if(c.done)continue;c.y+=v*dt;c.el.style.transform=`translate(${c.x}px,${c.y}px)`;if(c.y+c.h>=G.lineY)fail(c);}
+    for(const c of G.cards.slice()){if(c.done)continue;c.y+=G.lineY/c.fall*dt;c.el.style.transform=`translate(${c.x}px,${c.y}px)`;if(c.y+c.h>=G.lineY)fail(c);}
     if(!G.lock&&G.cards.length)autoLock();
     const tx=G.lock?G.lock.x+G.lock.wd/2:G.W/2;G.shipX+=(tx-G.shipX)*Math.min(1,dt*10);$('#ship').style.transform=`translateX(${G.shipX-G.shipW/2}px)`;
     G.fx=stepFx($('#fx'),G.fx,G.W,G.H,dt);}
@@ -582,33 +864,83 @@ window.addEventListener('resize',()=>{if(G&&$('#s-game').classList.contains('on'
 
 /* ========== 重組句子 ========== */
 let S=null;
+const SENT_CFG={hint:{dis:1,blank:2},normal:{dis:3,blank:3},dict:{dis:3,blank:4}};
 function slotOpts(spec){spec=String(spec||'').trim();if(!spec)return [];const uw=BANK.words.filter(w=>w.cat===spec);if(uw.length)return uw.map(w=>({en:w.en,zh:w.zh}));
   return spec.split('/').map(x=>x.trim()).filter(Boolean).map(x=>{const i=x.indexOf('=');return i<0?{en:x,zh:x}:{en:x.slice(0,i).trim(),zh:x.slice(i+1).trim()};});}
-function realize(t){const pick={};(t.slots||[]).forEach((sp,i)=>{const o=slotOpts(sp);if(o.length)pick[i+1]=o[Math.random()*o.length|0];});
+function realize(t,tid){const pick={},opts={};(t.slots||[]).forEach((sp,i)=>{const o=slotOpts(sp);if(o.length){pick[i+1]=o[Math.random()*o.length|0];opts[i+1]=o;}});
   const sub=(str,k)=>String(str).replace(/\{(\d)\}/g,(m,n)=>pick[n]?pick[n][k]:m);
-  const en=sub(t.en,'en').replace(/(^|[.!?]\s+)([a-z])/g,(m,a,b)=>a+b.toUpperCase());return {en,zh:sub(t.zh,'zh'),cat:t.cat};}
-function tokenize(en){const out=[];const re=/[A-Za-z0-9'’-]+|[.,!?]/g;let m,start=true;while((m=re.exec(en))){const tx=m[0],p=/^[.,!?]$/.test(tx);out.push({text:tx,start:start&&!p});start=p?/[.!?]/.test(tx):false;}return out;}
-function buildSentQueue(){const pool=BANK.sentences.filter(t=>selUnits().includes(t.cat));if(!pool.length)return [];
-  if(pool.length>=MIN_Q)return shuffle(pool.slice()).slice(0,MAX_Q).map(realize);
-  let q=[];while(q.length<MIN_Q)q=q.concat(shuffle(pool.slice()).map(realize));return q.slice(0,MIN_Q);}
+  const en=sub(t.en,'en').replace(/(^|[.!?]\s+)([a-z])/g,(m,a,b)=>a+b.toUpperCase());
+  const used=Object.keys(pick).filter(n=>String(t.en).includes('{'+n+'}'));
+  return {en,zh:sub(t.zh,'zh'),cat:t.cat,tid,slotWords:used.map(n=>pick[n].en),slotOthers:used.flatMap(n=>opts[n].filter(o=>o!==pick[n]).map(o=>o.en)),custom:t.distract||[]};}
+const SUF_EXP={"'s":'is',"'re":'are',"'m":'am',"'ll":'will',"'ve":'have',"n't":'not'};
+const S_BASE=['it','he','she','that','there','where','what','who','here','how'];
+function splitTok(tx){tx=tx.replace(/’/g,"'");if(/^(can't|won't|let's)$/i.test(tx))return [tx];let m=tx.match(/^(.+?)(n't)$/i);if(m)return [m[1],m[2]];
+  m=tx.match(/^(.+?)('(?:s|re|m|ll|ve))$/i);if(m&&(m[2].toLowerCase()!=="'s"||S_BASE.includes(m[1].toLowerCase())))return [m[1],m[2]];return [tx];}
+function tokenize(en){const out=[];const re=/[A-Za-z0-9'’-]+|[.,!?]/g;let m,start=true;while((m=re.exec(en))){const tx=m[0],p=/^[.,!?]$/.test(tx);
+  splitTok(tx).forEach((piece,j)=>out.push({text:piece,start:start&&!p&&j===0,suf:j>0}));start=p?/[.!?]/.test(tx):false;}return out;}
+function answers(toks){let res=[[]];toks.forEach(t=>{const ex=t.suf&&SUF_EXP[t.text.toLowerCase()];res=res.flatMap(a=>ex&&res.length<8?[a.concat(t.text),a.concat(ex)]:[a.concat(t.text)]);});return res;}
+const CONF={is:['are','am'],are:['is','am'],am:['is','are'],do:['does','did'],does:['do','did'],have:['has'],has:['have'],he:['she','his'],she:['he','her'],his:['her'],her:['his'],
+  a:['an'],an:['a'],this:['that'],that:['this'],where:['what','when'],what:['where','who'],how:['who','what'],many:['much'],like:['likes'],likes:['like'],to:['at','in'],on:['in','at'],in:['on','at'],at:['on','in'],
+  yes:['no'],no:['yes'],i:['you','me'],you:['your','I'],we:['us','our'],going:['go','goes'],go:['goes'],there:['their'],day:['days'],class:['classes'],"'s":["'re"],"'re":["'s","'m"],"'m":["'s"],not:["n't"]};
+function plural(w){return /s$/i.test(w)?w.slice(0,-1):w+'s';}
+function pickDistract(q,toks,ans,n){const inAns=new Set(ans.flat().map(x=>x.toLowerCase()));const out=[];const seen=new Set();
+  const add=x=>{if(out.length>=n||!x||/\s/.test(x))return;const k=x.toLowerCase();if(inAns.has(k)||seen.has(k))return;seen.add(k);out.push(x);};
+  shuffle(q.custom.slice()).forEach(add);shuffle(q.slotOthers.slice()).forEach(add);
+  const conf=shuffle(toks.filter(t=>CONF[t.text.toLowerCase()]).flatMap(t=>CONF[t.text.toLowerCase()].map(c=>t.start&&S.mode==='hint'?c[0].toUpperCase()+c.slice(1):c)));conf.forEach(add);
+  q.slotWords.filter(w=>!/\s/.test(w)).forEach(w=>add(plural(w)));return out;}
+function buildSentQueue(){const pool=BANK.sentences.filter(t=>selUnits().includes(t.cat));if(!pool.length)return [];const ids=pool.map((t,i)=>i);
+  let order;if(pool.length>=MIN_Q)order=shuffle(ids.slice()).slice(0,MAX_Q);else{order=[];while(order.length<MIN_Q)order=order.concat(shuffle(ids.slice()));order=order.slice(0,MIN_Q);}
+  const q=order.map(i=>realize(pool[i],i));const nb=Math.min(SENT_CFG[SET.mode].blank,q.length);const seen=new Set(),rep=[],rest=[];
+  q.forEach((x,i)=>{(seen.has(x.tid)?rep:rest).push(i);seen.add(x.tid);});const pickB=shuffle(rep).concat(shuffle(rest)).slice(0,nb);pickB.forEach(i=>q[i].blank=true);return q;}
 function startSent(){const q=buildSentQueue();if(!q.length){toast('選的單元沒有句子');return;}
-  S={q,N:q.length,i:0,mode:SET.mode,shipT:themeOf(ME.ship),bgT:themeOf(ME.bg),points:0,missed:new Map(),fx:[],combo:0,active:true,last:performance.now()};
+  S={q,N:q.length,i:0,units:selUnits(),mode:SET.mode,shipT:themeOf(ME.ship),bgT:themeOf(ME.bg),points:0,missed:new Map(),fx:[],combo:0,active:true,last:performance.now()};
   show('s-sent');requestAnimationFrame(()=>{sLayout();drawScene($('#sbg'),S.bgT,null,120);drawSShip();updCombo();$('#sMute').textContent=Speech.on?'🔊':'🔇';nextQ();requestAnimationFrame(sLoop);});}
 function sLayout(){const f=$('#sfield').getBoundingClientRect();S.W=f.width;S.H=f.height;const cv=$('#sfx'),d=window.devicePixelRatio||1;cv.width=S.W*d;cv.height=S.H*d;cv.getContext('2d').setTransform(d,0,0,d,0,0);}
 function drawSShip(){const t=THEMES[S.shipT],s=6,cv=$('#sship canvas');cv.width=t.px[0].length*s;cv.height=t.px.length*s;const x=cv.getContext('2d');x.clearRect(0,0,cv.width,cv.height);drawPx(x,t.px,t.pal,s);cv.style.width=cv.width+'px';cv.style.height=cv.height+'px';}
 function shipPos(){const f=$('#sfield').getBoundingClientRect(),r=$('#sship').getBoundingClientRect();return [r.left-f.left+r.width/2,r.top-f.top+6];}
 function sLoop(t){if(!S||!S.active)return;const dt=Math.min(.05,(t-S.last)/1000);S.last=t;S.fx=stepFx($('#sfx'),S.fx,S.W,S.H,dt);requestAnimationFrame(sLoop);}
-function nextQ(){if(S.i>=S.N)return finishSent();const q=S.q[S.i];S.cur={q,toks:tokenize(q.en),err:false,done:false};
-  $('#sprog').textContent=`${S.i+1} / ${S.N}`;$('#spts').textContent=S.points;$('#qzh').textContent=q.zh;$('#qspk').hidden=S.mode!=='hint';$('#smsg').textContent='';
-  const ans=$('#ans');ans.className='ans';ans.innerHTML='';const pool=$('#pool');pool.innerHTML='';
-  let order=shuffle(S.cur.toks.map((t,i)=>i));if(order.length>1&&order.every((v,i)=>S.cur.toks[v].text===S.cur.toks[i].text))order.push(order.shift());
-  order.forEach(i=>{const t=S.cur.toks[i];const b=document.createElement('button');b.className='tile';b.dataset.t=t.text;
-    b.textContent=S.mode==='normal'&&t.start&&t.text!=='I'?t.text[0].toLowerCase()+t.text.slice(1):t.text;pool.appendChild(b);});
-  $('#sCheck').textContent='檢查答案';updCheck();$('.swrap').scrollTop=0;
-  if(S.mode==='hint'&&Speech.on)Speech.say(q.en,1);}
+function joinToks(list){return list.map((t,i)=>(i&&!/^[.,!?]$/.test(t.text)&&!t.suf?' ':'')+t.html).join('');}
+function nextQ(){if(S.i>=S.N)return finishSent();const q=S.q[S.i];const toks=tokenize(q.en);const ans=answers(toks.map(t=>t));
+  S.cur={q,toks,ans:answers(toks),err:false,done:false,blank:!!q.blank};
+  $('#sprog').textContent=`${S.i+1} / ${S.N}`;$('#spts').textContent=S.points;
+  const dict=S.mode==='dict';$('#qzh').textContent=dict?'🎧 聽句子，按右邊喇叭可以再聽':q.zh;$('#qzh').classList.toggle('dict',dict);$('#qspk').hidden=S.mode==='normal';$('#smsg').textContent='';
+  $('.qhint').textContent=S.cur.blank?'✏️ 填空題：用鍵盤打出空格裡的字':'點字塊放進答案；按住拖曳可以調整順序';
+  const box=$('#ans');box.className='ans';box.innerHTML='';const pool=$('#pool');pool.innerHTML='';$('#skb').hidden=!S.cur.blank;$('#sCheck').hidden=S.cur.blank;
+  if(S.cur.blank)setupBlank();else{
+    const main=S.cur.ans[0];const tiles=toks.map(t=>({text:t.text,start:t.start}));
+    const need={};main.forEach(x=>need[x]=(need[x]||0)+1);
+    S.cur.ans.slice(1).forEach(a=>{const c={};a.forEach(x=>{c[x]=(c[x]||0)+1;if(c[x]>(need[x]||0)){need[x]=c[x];tiles.push({text:x,start:false});}});});
+    pickDistract(q,toks,S.cur.ans,SENT_CFG[S.mode].dis).forEach(x=>tiles.push({text:x,start:false,dis:true}));
+    let order=shuffle(tiles.map((t,i)=>i));if(order.length>1&&order.every((v,i)=>v===i))order.push(order.shift());
+    order.forEach(i=>{const t=tiles[i];const b=document.createElement('button');b.className='tile';b.dataset.t=t.text;
+      b.textContent=S.mode!=='hint'&&t.start&&t.text!=='I'?t.text[0].toLowerCase()+t.text.slice(1):t.text;pool.appendChild(b);});
+    $('#sCheck').textContent='檢查答案';updCheck();}
+  $('.swrap').scrollTop=0;
+  if(S.mode!=='normal'&&Speech.on)Speech.say(q.en,1);}
+/* 填空題 */
+function setupBlank(){const c=S.cur;const cand=c.toks.map((t,i)=>i).filter(i=>/^[a-z]{2,}$/i.test(c.toks[i].text)&&!c.toks[i].suf);
+  const slotSet=new Set(c.q.slotWords.filter(w=>!/\s/.test(w)).map(w=>w.toLowerCase()));
+  let pref=cand.filter(i=>slotSet.has(c.toks[i].text.toLowerCase()));if(!pref.length)pref=cand.filter(i=>c.toks[i].text.length>=3);if(!pref.length)pref=cand;
+  c.bi=pref.length?pref[Math.random()*pref.length|0]:-1;if(c.bi<0){c.q.blank=false;return nextQ();}
+  c.word=c.toks[c.bi].text;c.pos=0;c.reveal=false;renderBlank();}
+function renderBlank(){const c=S.cur;const w=c.word;let slots='';[...w].forEach((ch,i)=>{
+    if(i<c.pos)slots+=`<span class="sl ok">${esc(ch)}</span>`;else if(c.reveal)slots+=`<span class="sl ft${i===c.pos?' cur':''}">${esc(ch)}</span>`;else slots+=`<span class="sl${i===c.pos?' cur':''}">&nbsp;</span>`;});
+  const list=c.toks.map((t,i)=>({text:t.text,suf:t.suf,html:i===c.bi?`<span class="bw">${slots}</span>`:esc(t.text)}));
+  $('#ans').innerHTML=`<div class="bline">${joinToks(list)}</div>`;}
+function blankPress(k,btn){if(!S||!S.cur||!S.cur.blank||S.cur.done)return;const c=S.cur;const exp=c.word[c.pos].toLowerCase();
+  if(k===exp){c.pos++;flashKey(btn,'ok');renderBlank();const f=$('#sfield').getBoundingClientRect(),r=$('#ans').getBoundingClientRect(),[sx,sy]=shipPos();shotFx(S.fx,S.shipT,sx,sy,r.left-f.left+r.width/2,r.top-f.top+r.height/2);
+    if(c.pos>=c.word.length)sentDone();}
+  else{flashKey(btn,'bad');c.reveal=true;renderBlank();if(!c.err){c.err=true;S.missed.set(c.q.en,{en:c.q.en,zh:c.q.zh});S.combo=0;updCombo();}
+    $('#smsg').textContent='打錯了，照淡淡的字母打出正確的字';const [sx,sy]=shipPos();react($('#sship canvas'),S.shipT,'bad',S.fx,sx,sy);}}
+buildKb($('#skb'),blankPress,'#s-sent');
+function sentDone(){const c=S.cur;c.done=true;const [sx,sy]=shipPos();if(!c.err){S.points++;S.combo++;}updCombo();$('#spts').textContent=S.points;
+  $('#skb').hidden=true;$('#sCheck').hidden=false;const box=$('#ans');box.className='ans ok';box.innerHTML=`<div class="okline">${esc(c.q.en)}</div>`;
+  $('#smsg').textContent=c.err?'✓ 完成了！（這題不計分）':'🎉 答對了！+1';react($('#sship canvas'),S.shipT,'ok',S.fx,sx,sy);
+  const f=$('#sfield').getBoundingClientRect(),r=box.getBoundingClientRect();burst(S.fx,S.shipT,r.left-f.left+r.width/2,r.top-f.top+r.height/2,c.err?'':'+1');
+  if(Speech.on)Speech.say(c.q.en,1);$('#sCheck').textContent=S.i+1>=S.N?'看結果':'下一題 →';$('#sCheck').disabled=false;}
 function flip(b,dest){const r0=b.getBoundingClientRect();dest.appendChild(b);const r1=b.getBoundingClientRect();b.classList.remove('fly');b.style.transform=`translate(${r0.left-r1.left}px,${r0.top-r1.top}px)`;void b.offsetWidth;b.classList.add('fly');b.style.transform='';}
 function clearMarks(){$('#ans').querySelectorAll('.badpos').forEach(x=>x.classList.remove('badpos'));$('#smsg').textContent='';}
-function updCheck(){$('#sCheck').disabled=!S.cur.done&&$('#ans').querySelectorAll('.tile').length<S.cur.toks.length;}
+function updCheck(){if(S.cur.blank)return;const n=$('#ans').querySelectorAll('.tile').length;$('#sCheck').disabled=!S.cur.done&&n===0;}
 function updCombo(){$('#sship').classList.toggle('combo',S.combo>=3);$('#scombo').textContent=S.combo>=3?`🔥 連對 ${S.combo}`:'';}
 $('#pool').onclick=e=>{const b=e.target.closest('.tile');if(!b||!S||S.cur.done||b._mv)return;if(b._dragged){b._dragged=0;return;}b._mv=1;
   const f=$('#sfield').getBoundingClientRect(),r=b.getBoundingClientRect(),[sx,sy]=shipPos();shotFx(S.fx,S.shipT,sx,sy,r.left-f.left+r.width/2,r.top-f.top+r.height/2);
@@ -639,38 +971,171 @@ function dgEnd(){if(!DG)return;const d=DG;DG=null;if(!d.on)return;const b=d.b;b.
   clearMarks();updCheck();}
 window.addEventListener('pointerup',dgEnd);window.addEventListener('pointercancel',dgEnd);
 $('#qspk').onclick=()=>{if(S&&S.cur)Speech.say(S.cur.q.en,1);};
-$('#sCheck').onclick=()=>{if(!S)return;if(S.cur.done){S.i++;nextQ();return;}
-  const placed=[...$('#ans').querySelectorAll('.tile')],want=S.cur.toks.map(t=>t.text);let bad=0;
-  placed.forEach((b,i)=>{if(b.dataset.t!==want[i]){b.classList.add('badpos');bad++;}});const [sx,sy]=shipPos();
-  if(bad){if(!S.cur.err){S.cur.err=true;S.missed.set(S.cur.q.en,{en:S.cur.q.en,zh:S.cur.q.zh});}S.combo=0;updCombo();
-    $('#smsg').textContent=`有 ${bad} 個位置不對，把紅色字塊拖到正確位置`;react($('#sship canvas'),S.shipT,'bad',S.fx,sx,sy);return;}
-  S.cur.done=true;if(!S.cur.err){S.points++;S.combo++;}updCombo();$('#spts').textContent=S.points;
-  const ans=$('#ans');ans.className='ans ok';ans.innerHTML=`<div class="okline">${esc(S.cur.q.en)}</div>`;
-  $('#smsg').textContent=S.cur.err?'✓ 排對了！（這題不計分）':'🎉 答對了！+1';react($('#sship canvas'),S.shipT,'ok',S.fx,sx,sy);
-  const f=$('#sfield').getBoundingClientRect(),r=ans.getBoundingClientRect();burst(S.fx,S.shipT,r.left-f.left+r.width/2,r.top-f.top+r.height/2,S.cur.err?'':'+1');
-  if(Speech.on)Speech.say(S.cur.q.en,1);$('#sCheck').textContent=S.i+1>=S.N?'看結果':'下一題 →';$('#sCheck').disabled=false;};
-function finishSent(){S.active=false;Speech.stop();endGame({kind:'sent',title:'完成！',points:S.points,N:S.N,missed:[...S.missed.values()]});}
+$('#sCheck').onclick=()=>{if(!S)return;if(S.cur.done){S.i++;nextQ();return;}if(S.cur.blank)return;
+  const placed=[...$('#ans').querySelectorAll('.tile')],got=placed.map(b=>b.dataset.t);const [sx,sy]=shipPos();
+  if(!S.cur.ans.some(a=>a.length===got.length&&a.every((x,i)=>x===got[i]))){
+    const ref=S.cur.ans.map(a=>({a,m:got.filter((x,i)=>a[i]!==x).length+Math.abs(a.length-got.length)})).sort((p,q)=>p.m-q.m)[0].a;
+    let bad=0;placed.forEach((b,i)=>{if(b.dataset.t!==ref[i]){b.classList.add('badpos');bad++;}});
+    const diff=ref.length-got.length;
+    if(!S.cur.err){S.cur.err=true;S.missed.set(S.cur.q.en,{en:S.cur.q.en,zh:S.cur.q.zh});}S.combo=0;updCombo();
+    $('#smsg').textContent=diff>0?`還少了 ${diff} 個字塊`+(bad?`，紅色的位置也要再看看`:''):diff<0?`多放了 ${-diff} 個字塊，把不需要的點回下面`:`有 ${bad} 個字塊不對，紅色的可以拖到正確位置，或換成下面的字`;react($('#sship canvas'),S.shipT,'bad',S.fx,sx,sy);return;}
+  sentDone();};
+function finishSent(){S.active=false;Speech.stop();endGame({kind:'sent',units:S.units,title:'完成！',points:S.points,N:S.N,missed:[...S.missed.values()]});}
 $('#sMute').onclick=()=>{Speech.on=!Speech.on;if(!Speech.on)Speech.stop();$('#sMute').textContent=Speech.on?'🔊':'🔇';};
 $('#sQuit').onclick=()=>{$('#sOv').classList.add('on');};$('#sResume').onclick=()=>{$('#sOv').classList.remove('on');};
 $('#sLeave').onclick=()=>{$('#sOv').classList.remove('on');if(S)S.active=false;Speech.stop();goHome();};
 window.addEventListener('resize',()=>{if(S&&S.active&&$('#s-sent').classList.contains('on')){sLayout();drawScene($('#sbg'),S.bgT,null,120);}});
 
+/* ========== 翻牌配對：單人 ========== */
+let F=null;
+function startFlip(){const q=buildQueue();if(!q.length){toast('選的單元沒有單字');return;}
+  const n=q.length,nb=Math.ceil(n/6),boards=Array.from({length:nb},()=>[]);
+  const sizes=boards.map((_,i)=>Math.floor(n/nb)+(i<n%nb?1:0));
+  q.forEach(w=>{let k=boards.findIndex((b,i)=>b.length<sizes[i]&&!b.some(x=>x.en===w.en));if(k<0)k=boards.findIndex((b,i)=>b.length<sizes[i]);boards[k].push(w);});
+  F={boards,bi:0,N:n,units:selUnits(),mode:SET.mode,bgT:themeOf(ME.bg),points:0,missed:new Map(),active:true};
+  $('#fplayers').hidden=true;show('s-flip');$('#fMute').textContent=Speech.on?'🔊':'🔇';requestAnimationFrame(()=>{drawScene($('#fbg'),F.bgT,null,120);flipBoard();});}
+function cardFace(c,mode,reveal){if(c.side==='zh'||c.s==='zh')return esc(c.zh||c.w.zh);const en=c.en||c.w.en;return mode==='dict'&&!reveal?'🎧':esc(en);}
+function flipBoard(){const ws=F.boards[F.bi];const cards=[];ws.forEach((w,pid)=>{cards.push({pid,side:'en',w});cards.push({pid,side:'zh',w});});
+  shuffle(cards);F.cards=cards;F.sel=-1;F.bad=new Set();F.left=ws.length;F.lock=false;
+  const g=$('#fgrid');g.style.gridTemplateColumns='repeat(4,1fr)';
+  g.innerHTML=cards.map((c,i)=>`<button class="fc up solo" data-i="${i}"><div class="in"><div class="fa bk">?</div><div class="fa ft${c.side==='zh'?' zh':''}">${cardFace(c,F.mode)}</div></div></button>`).join('');
+  $('#fprog').textContent=`第 ${F.bi+1} / ${F.boards.length} 組`;$('#fpts').textContent=F.points;
+  $('#fmsg').textContent=F.mode==='dict'?'🎧 點英文牌聽發音，再點它的中文':'點一張英文、一張中文，配成一對就消除';}
+function flipSolo(b){const i=+b.dataset.i,c=F.cards[i],els=$('#fgrid').children;if(b.classList.contains('gone')||F.lock)return;
+  if(c.side==='en'&&Speech.on)Speech.say(c.w.en,1);
+  if(F.sel<0){F.sel=i;b.classList.add('sel');return;}
+  if(F.sel===i){F.sel=-1;b.classList.remove('sel');return;}
+  const ia=F.sel,A=F.cards[ia];F.sel=-1;els[ia].classList.remove('sel');
+  if(A.pid===c.pid&&A.side!==c.side){[ia,i].forEach(k=>els[k].classList.add('done'));
+    const en=A.side==='en'?ia:i;els[en].querySelector('.ft').innerHTML=cardFace(F.cards[en],F.mode,true);if(c.side==='zh'&&Speech.on)Speech.say(c.w.en,1);
+    if(!F.bad.has(A.pid)){F.points++;$('#fpts').textContent=F.points;$('#fmsg').textContent='🎉 配對成功！+1';}else $('#fmsg').textContent='✓ 配對成功（這對不計分）';
+    F.lock=true;setTimeout(()=>{[ia,i].forEach(k=>els[k].classList.add('gone'));F.lock=false;F.left--;if(!F.left)setTimeout(nextBoard,400);},550);return;}
+  [A,c].forEach(x=>{if(!F.bad.has(x.pid)){F.bad.add(x.pid);F.missed.set(x.w.en,{en:x.w.en,zh:x.w.zh});}});
+  els[ia].classList.add('wrong');b.classList.add('wrong');setTimeout(()=>{els[ia].classList.remove('wrong');b.classList.remove('wrong');},450);
+  $('#fmsg').textContent='不是一對喔，這兩對都不計分，再找找看';
+  if(F.mode==='hint'){const pt=F.cards.findIndex((x,k)=>k!==ia&&x.pid===A.pid);setTimeout(()=>{els[pt].classList.add('hintp');setTimeout(()=>els[pt].classList.remove('hintp'),950);},300);}}
+function nextBoard(){if(!F||!F.active)return;F.bi++;if(F.bi<F.boards.length)return flipBoard();
+  F.active=false;Speech.stop();endGame({kind:'flip',noCoin:true,units:F.units,title:'配對完成！',points:F.points,N:F.N,missed:[...F.missed.values()]});}
+$('#fgrid').onclick=e=>{const b=e.target.closest('.fc');if(!b)return;if(RM&&RM.st)return roomClick(b);if(F&&F.active)flipSolo(b);};
+$('#fMute').onclick=()=>{Speech.on=!Speech.on;if(!Speech.on)Speech.stop();$('#fMute').textContent=Speech.on?'🔊':'🔇';};
+$('#fQuit').onclick=()=>$('#fOv').classList.add('on');$('#fResume').onclick=()=>$('#fOv').classList.remove('on');
+$('#fLeave').onclick=()=>{$('#fOv').classList.remove('on');if(RM){roomExit();return;}if(F)F.active=false;Speech.stop();goHome();};
+
+/* ========== 翻牌配對：多人連線 ========== */
+let RM=null;
+function openRoom(){RM=null;$('#rEntry').hidden=false;$('#rLobby').hidden=true;$('#rEnd').hidden=true;$('#rErr').textContent='';$('#rCode').value='';show('s-room');}
+async function roomCall(fn,...a){$('#rErr').textContent='';try{return await api(fn,...a);}catch(e){$('#rErr').textContent=emsg(e);return null;}}
+function roomBegin(st){if(!st)return;RM={code:st.code,ver:0,st:null,lastV:st.last?st.last.v:0,matchV:st.match?st.match.v:0,busy:false,built:false,t:null,fails:0};applyRoom(st);roomPoll();}
+$('#rCreate').onclick=async()=>{if(!selUnits().length){$('#rErr').textContent='請先回首頁選單元';return;}$('#rCreate').disabled=true;const st=await roomCall('roomCreate',CRED.name,CRED.pin,selUnits(),SET.mode);$('#rCreate').disabled=false;roomBegin(st);};
+$('#rJoin').onclick=async()=>{const c=$('#rCode').value.trim();if(!/^\d{4}$/.test(c)){$('#rErr').textContent='房號是 4 位數字';return;}$('#rJoin').disabled=true;const st=await roomCall('roomJoin',CRED.name,CRED.pin,c);$('#rJoin').disabled=false;roomBegin(st);};
+$('#rStart').onclick=async()=>{$('#rStart').disabled=true;const st=await roomCall('roomStart',CRED.name,CRED.pin,RM.code);$('#rStart').disabled=false;if(st)applyRoom(st);};
+$('#rBack').onclick=()=>{if(RM)roomExit();else goHome();};
+$('#rHome').onclick=async()=>{roomStop();try{ME=await api('login',CRED.name,CRED.pin);}catch(e){}goHome();};
+function roomStop(){if(RM&&RM.t)clearTimeout(RM.t);RM=null;Speech.stop();}
+async function roomExit(){const code=RM&&RM.code,ended=RM&&RM.st&&RM.st.status==='end';roomStop();if(code&&!ended)api('roomLeave',CRED.name,CRED.pin,code).catch(()=>{});goHome();}
+async function roomPoll(){if(!RM)return;const me=RM;try{const st=await api('roomGet',me.code,CRED.name);if(RM!==me)return;me.fails=0;applyRoom(st);}
+  catch(e){if(RM!==me)return;if(/找不到/.test(emsg(e))){toast('房間已經關閉了');roomStop();goHome();return;}me.fails++;}
+  if(RM===me&&me.st&&me.st.status!=='end')me.t=setTimeout(roomPoll,me.st.status==='play'?1100:1800);}
+function applyRoom(st){if(!RM||!st)return;if(st.ver===RM.ver&&RM.st)return;const prev=RM.st;RM.st=st;RM.ver=st.ver;
+  if(st.last&&st.last.v!==RM.lastV){RM.lastV=st.last.v;const c=st.cards[st.last.i];if(c&&c.s==='en'&&Speech.on)Speech.say(c.en,1);}
+  let note='';if(st.match&&st.match.v!==RM.matchV){RM.matchV=st.match.v;note=st.match.name===CRED.name?'🎉 配對成功！+1，再翻一次':`${st.match.name} 配對成功 +1`;}
+  if(st.status==='wait')return roomLobby(st);
+  if(st.status==='end')return roomEnd(st);
+  if(!$('#s-flip').classList.contains('on')){show('s-flip');$('#fMute').textContent=Speech.on?'🔊':'🔇';requestAnimationFrame(()=>drawScene($('#fbg'),themeOf(ME.bg),null,120));}
+  roomBoard(st,note);}
+function roomLobby(st){if(!$('#s-room').classList.contains('on'))show('s-room');$('#rEntry').hidden=true;$('#rEnd').hidden=true;$('#rLobby').hidden=false;$('#rCodeShow').textContent=st.code;
+  $('#rPlayers').innerHTML=st.players.map(p=>`<li><span style="font-size:26px">${esc(p.avatar)}</span><span class="en" style="font-size:20px">${esc(p.name)}</span><span class="zhw">${p.name===st.host?'房主':''}${p.name===CRED.name?'（你）':''}</span></li>`).join('');
+  const host=st.host===CRED.name;$('#rStart').hidden=!host;$('#rStart').disabled=st.players.length<2;
+  $('#rWait').textContent=host?(st.players.length<2?'等同學輸入房號加入…（至少 2 人）':`${st.players.length} 人到齊了就按開始`):'等房主按開始…';}
+function roomBoard(st,note){const g=$('#fgrid');
+  if(!RM.built){RM.built=true;g.style.gridTemplateColumns='repeat(4,1fr)';
+    g.innerHTML=st.cards.map((c,i)=>`<button class="fc" data-i="${i}"><div class="in"><div class="fa bk">?</div><div class="fa ft${c.s==='zh'?' zh':''}"></div></div></button>`).join('');}
+  [...g.children].forEach((b,i)=>{const c=st.cards[i],up=c.d||st.open.includes(i);b.classList.toggle('up',!!up&&!c.d);b.classList.toggle('done',!!c.d);
+    b.classList.toggle('wrong',!!st.hideAt&&st.open.includes(i));b.querySelector('.ft').innerHTML=up?cardFace(c,st.mode,!!c.d):'';});
+  const cur=st.players[st.turn],mine=cur&&cur.name===CRED.name;
+  $('#fplayers').hidden=false;$('#fplayers').innerHTML=st.players.map((p,k)=>`<span class="pl${k===st.turn?' turn':''}${p.left||p.away?' off':''}">${esc(p.avatar)} ${esc(p.name)}${p.name===CRED.name?'（你）':''} ⭐${p.score}</span>`).join('');
+  const me=st.players.find(p=>p.name===CRED.name);$('#fpts').textContent=me?me.score:0;$('#fprog').textContent=`房號 ${st.code}`;
+  $('#fmsg').textContent=note||(st.hideAt?'沒配對到，換下一位…':mine?'輪到你了！翻兩張牌':`輪到 ${cur?cur.name:''} 翻牌`);}
+async function roomClick(b){const st=RM.st;if(st.status!=='play'||RM.busy)return;const cur=st.players[st.turn];
+  if(!cur||cur.name!==CRED.name){toast(`現在是 ${cur?cur.name:''} 的回合`);return;}
+  const i=+b.dataset.i,c=st.cards[i];if(c.d||st.open.includes(i)||st.hideAt||st.open.length>=2)return;
+  RM.busy=true;b.classList.add('up');b.querySelector('.ft').innerHTML=cardFace(c,st.mode,false);if(c.s==='en'&&Speech.on)Speech.say(c.en,1);
+  const me=RM;try{const ns=await api('roomFlip',CRED.name,CRED.pin,me.code,i);if(RM!==me)return;if(ns.last)me.lastV=ns.last.v;applyRoom(ns);}
+  catch(e){toast(emsg(e));me.ver=0;}finally{me.busy=false;}}
+function roomEnd(st){if(RM.t)clearTimeout(RM.t);show('s-room');$('#rEntry').hidden=true;$('#rLobby').hidden=true;$('#rEnd').hidden=false;
+  const L=st.players.slice().sort((a,b)=>b.score-a.score);const top=L.length?L[0].score:0;
+  $('#rEndTitle').textContent=L.filter(p=>p.score===top).some(p=>p.name===CRED.name)&&top>0?'🏆 你贏了！':'對戰結束！';
+  $('#rRank').innerHTML=L.map((p,k)=>`<li><span class="n" style="width:28px;font-weight:800">${k+1}</span><span style="font-size:24px">${esc(p.avatar)}</span><span class="en" style="font-size:19px">${esc(p.name)}${p.left?'（離開）':''}</span><span class="zhw">⭐ ${p.score}</span></li>`).join('');
+  const me=st.players.find(p=>p.name===CRED.name);$('#rEndNote').textContent=st.creditErr?'積分儲存失敗：'+st.creditErr:me&&me.score?`你得到的 ${me.score} 積分已經加進本月積分`:'這局沒有配對到，下次加油！';Speech.stop();}
+
+/* ========== 自然發音 ========== */
+let P=null;
+function phonParts(q){const i=q.en.toLowerCase().indexOf(q.a.toLowerCase());return [q.en.slice(0,i),q.en.slice(i,i+q.a.length),q.en.slice(i+q.a.length)];}
+function startPhon(){const q=buildQueue(BANK.phonics||[]);if(!q.length){toast('選的分類沒有發音題');return;}
+  P={q,N:q.length,i:0,units:selUnits(),mode:SET.mode,bgT:themeOf(ME.bg),points:0,combo:0,missed:new Map(),active:true};
+  show('s-phon');$('#pMute').textContent=Speech.on?'🔊':'🔇';requestAnimationFrame(()=>{drawScene($('#pbg'),P.bgT,null,120);phonQ();});}
+function phonQ(){if(P.i>=P.N)return phonEnd();const q=P.q[P.i];const [pre,a,post]=phonParts(q);
+  let opts=q.o.filter(o=>o&&o.toLowerCase()!==a.toLowerCase());
+  if(opts.length<2){const more=shuffle((BANK.phonics||[]).map(x=>x.a).filter(x=>x.toLowerCase()!==a.toLowerCase()&&!opts.includes(x)));opts=opts.concat([...new Set(more)]);}
+  opts=shuffle([a].concat(opts.slice(0,2)));
+  P.cur={q,pre,a,post,opts,err:false,done:false};
+  $('#pprog').textContent=`${P.i+1} / ${P.N}`;$('#ppts').textContent=P.points;$('#pmsg').textContent='';$('#pNext').hidden=true;
+  $('#pzh').textContent=P.mode==='hint'?q.zh:'';
+  $('#pword').innerHTML=P.mode==='dict'?'🎧':`${esc(pre)}<span class="gap">${esc(a)}</span>${esc(post)}`;
+  $('#popts').innerHTML=opts.map(o=>`<button class="popt" data-o="${esc(o)}">${esc(P.mode==='dict'?pre+o+post:o)}</button>`).join('');
+  if(Speech.on)Speech.say(q.en,1);}
+$('#popts').onclick=e=>{const b=e.target.closest('.popt');if(!b||!P||!P.cur)return;const c=P.cur,o=b.dataset.o,built=c.pre+o+c.post;
+  if(c.done){Speech.say(built,1);return;}
+  if(b.classList.contains('bad')){Speech.seq([built,c.q.en]);return;}
+  if(o.toLowerCase()===c.a.toLowerCase()){c.done=true;b.classList.add('ok');if(!c.err){P.points++;P.combo++;}
+    $('#ppts').textContent=P.points;$('#pcombo').textContent=P.combo>=3?`🔥 連對 ${P.combo}`:'';
+    $('#pword').innerHTML=`${esc(c.pre)}<span class="hl">${esc(c.a)}</span>${esc(c.post)}`;$('#pzh').textContent=c.q.zh;
+    $('#pmsg').textContent=c.err?`✓ 是 ${c.q.en}（這題不計分）`:'🎉 答對了！+1';Speech.say(c.q.en,1);
+    $('#pNext').textContent=P.i+1>=P.N?'看結果':'下一題 →';$('#pNext').hidden=false;return;}
+  b.classList.add('bad');b.innerHTML=`${esc(P.mode==='dict'?built:o)}<small>🔊 ${esc(built)}</small>`;
+  if(!c.err){c.err=true;P.combo=0;$('#pcombo').textContent='';P.missed.set(c.q.en,{en:c.q.en,zh:c.q.zh});}
+  $('#pmsg').textContent=`你選的是「${built}」的聲音，仔細聽兩個有什麼不同`;Speech.seq([built,c.q.en]);};
+$('#pspk').onclick=()=>{if(P&&P.cur)Speech.say(P.cur.q.en,1);};
+$('#pNext').onclick=()=>{if(!P)return;P.i++;phonQ();};
+function phonEnd(){P.active=false;Speech.stop();endGame({kind:'phon',units:P.units,title:'完成！',points:P.points,N:P.N,missed:[...P.missed.values()]});}
+$('#pMute').onclick=()=>{Speech.on=!Speech.on;if(!Speech.on)Speech.stop();$('#pMute').textContent=Speech.on?'🔊':'🔇';};
+$('#pQuit').onclick=()=>$('#pOv').classList.add('on');$('#pResume').onclick=()=>$('#pOv').classList.remove('on');
+$('#pLeave').onclick=()=>{$('#pOv').classList.remove('on');if(P)P.active=false;Speech.stop();goHome();};
+
+/* ========== 月初禮物箱 ========== */
+let giftBusy=false;
+function showGift(){const g=ME.gift;if(!g||$('#giftOv').classList.contains('on'))return;
+  const mm=/^\d{4}-(\d\d)$/.exec(g.month);$('#gTitle').textContent=mm?`${+mm[1]} 月排行結算`:`${g.month}排行結算`;$('#gBox').textContent='🎁';$('#gBox').className='gbox';$('#gSub').textContent='點禮物箱打開';$('#gFly').innerHTML='';$('#gOk').hidden=true;giftBusy=false;
+  $('#giftOv').classList.add('on');}
+$('#gBox').onclick=()=>{if(giftBusy)return;giftBusy=true;const g=ME.gift;const b=$('#gBox');b.classList.add('shake');
+  setTimeout(()=>{b.classList.remove('shake');b.classList.add('open');b.textContent=g.type==='coin'?'🏆':'🎉';
+    const ic=g.type==='coin'?'🪙':'⭐',n=g.type==='coin'?14:16;
+    $('#gFly').innerHTML=Array.from({length:n},(_,i)=>{const a=-Math.PI/2+(i/(n-1)-.5)*2.6,d=110+Math.random()*90;return `<span style="--x:${Math.cos(a)*d|0}px;--y:${Math.sin(a)*d|0}px;--r:${(Math.random()*80-40)|0}deg;animation-delay:${i*45}ms">${ic}</span>`;}).join('');
+    $('#gSub').innerHTML=g.type==='coin'?`上個月你是第 ${g.rank} 名！<br>獲得 <b>🪙 ${g.amount}</b> 枚金幣<br><small>本月積分從 0 開始</small>`:`送你 <b>⭐ ${g.amount}</b> 積分<br><small>本月從 ${g.amount} 分開始，加油！</small>`;
+    $('#gOk').hidden=false;},650);};
+$('#gOk').onclick=async()=>{$('#gOk').disabled=true;try{ME=await api('openGift',CRED.name,CRED.pin);}catch(e){ME.gift=null;}finally{$('#gOk').disabled=false;}
+  $('#giftOv').classList.remove('on');goHome();};
+$('#bGiftPv').onclick=()=>{if(!PREVIEW)return;const type=(window.__gt=(window.__gt==='coin'?'pt':'coin'));ME=Mock.pvGift(ME.name,type);goHome();};
+
 /* ========== 結算 ========== */
 let LAST='word';
-async function endGame(R){LAST=R.kind;const perfect=R.points===R.N;const lab=R.kind==='sent'?'句子':'單字';
+async function endGame(R){LAST=R.kind;const perfect=!R.noCoin&&R.points===R.N;$('#ePerfect').textContent='🎉 全部一次答對！得到 1 枚金幣';const lab=R.kind==='sent'?'句子':'單字';const FIRST={sent:'第一次就排對',flip:'第一次就配對',phon:'第一次就選對'};
   show('s-end');$('#eTitle').textContent=R.title;$('#ePerfect').hidden=!perfect;
-  $('#ePts').textContent='+'+R.points;$('#eFirst').textContent=`${R.points}/${R.N}`;$('#eFirst').nextElementSibling.textContent=R.kind==='sent'?'第一次就排對':'第一次就拼對';$('#eCoin').textContent=perfect?'+1':'+0';$('#eTotal').textContent=ME.points+R.points;
+  $('#ePts').textContent='+'+R.points;$('#eFirst').textContent=`${R.points}/${R.N}`;$('#eFirst').nextElementSibling.textContent=FIRST[R.kind]||'第一次就拼對';$('#eCoin').textContent=perfect?'+1':'+0';$('#eTotal').textContent=ME.points+R.points;
   const list=R.missed;$('#eWlTitle').textContent=list.length?`需要再練習的${lab}（${list.length}）`:`需要再練習的${lab}`;
-  $('#eWl').innerHTML=list.length?list.map((w,i)=>`<li><button class="spk" data-i="${i}" aria-label="播放發音">🔊</button><span class="en"${R.kind==='sent'?' style="font-size:17px"':''}>${esc(w.en)}</span><span class="zhw">${esc(w.zh)}</span></li>`).join(''):`<li style="color:var(--mute)">沒有！每${R.kind==='sent'?'一句都第一次就排對':'個字都第一次就拼對'} 👍</li>`;
+  $('#eWl').innerHTML=list.length?list.map((w,i)=>`<li><button class="spk" data-i="${i}" aria-label="播放發音">🔊</button><span class="en"${R.kind==='sent'?' style="font-size:17px"':''}>${esc(w.en)}</span><span class="zhw">${esc(w.zh)}</span></li>`).join(''):`<li style="color:var(--mute)">沒有！${R.kind==='sent'?'每一句':'每個字'}都${FIRST[R.kind]||'第一次就拼對'} 👍</li>`;
   $('#eWl').onclick=e=>{const b=e.target.closest('.spk');if(b)Speech.say(list[+b.dataset.i].en,1);};
   $('#eSave').textContent='儲存中…';
-  try{ME=await api('submitRound',CRED.name,CRED.pin,R.points,perfect);$('#eSave').textContent='已儲存 ✓';$('#eTotal').textContent=ME.points;}
+  try{ME=await api('submitRound',CRED.name,CRED.pin,R.points,perfect,R.units||[]);$('#eSave').textContent='已儲存 ✓';$('#eTotal').textContent=ME.points;
+    if(perfect&&ME.coinCapped){$('#eCoin').textContent='+0';$('#ePerfect').textContent='🎉 全部一次答對！不過這些單元今天的金幣已經拿滿 5 枚，換個單元練習吧';}}
   catch(e){$('#eSave').textContent='儲存失敗：'+emsg(e);}}
-$('#bAgain').onclick=()=>{Speech.unlock();LAST==='sent'?startSent():startGame();};
+$('#bAgain').onclick=()=>{Speech.unlock();(STARTERS[LAST]||STARTERS.word)();};
 $('#bHome2').onclick=()=>{Speech.stop();goHome();};
 
 /* ========== 商店 ========== */
 let confirmId=null;
+const START_ITEMS=['ship_retro','bg_retro'];
+function priceOf(it){if(!it.price)return 0;return it.price+(BANK.priceStep||2)*ME.owned.filter(x=>!START_ITEMS.includes(x)).length;}
 function renderShop(){$('#sCoins').textContent=ME.coins;
   ['ship','bg'].forEach(type=>{const box=$('#shop-'+type);box.innerHTML='';
     BANK.shop.filter(i=>i.type===type&&i.on).forEach(it=>{const th=themeOf(it.id);if(!THEMES[th])return;
@@ -678,14 +1143,14 @@ function renderShop(){$('#sCoins').textContent=ME.coins;
       const d=document.createElement('div');d.className='item';const cv=document.createElement('canvas');cv.width=96;cv.height=72;d.appendChild(cv);
       let label,cls='btn',dis=false;
       if(using){label='使用中';cls+=' using';dis=true;}else if(owned){label='使用';}
-      else if(confirmId===it.id){label=`確定花 🪙${it.price}？`;cls+=' confirm';}
-      else{label=it.price?`購買 🪙${it.price}`:'免費';cls+=' amber';dis=ME.coins<it.price;}
+      else if(confirmId===it.id){label=`確定花 🪙${priceOf(it)}？`;cls+=' confirm';}
+      else{const pr=priceOf(it);label=pr?`購買 🪙${pr}`:'免費';cls+=' amber';dis=ME.coins<pr;}
       d.insertAdjacentHTML('beforeend',`<div class="nm">${esc(it.name)}</div><button class="${cls}"${dis?' disabled':''}>${label}</button>`);
       d.querySelector('button').onclick=()=>shopClick(it,owned);box.appendChild(d);
       requestAnimationFrame(()=>drawScene(cv,type==='bg'?th:th,type==='ship'?th:null,64));});});}
 async function shopClick(it,owned){try{
   if(owned){ME=await api('equip',CRED.name,CRED.pin,it.id);toast('換好了！');}
-  else if(confirmId!==it.id&&it.price>0){confirmId=it.id;renderShop();return;}
+  else if(confirmId!==it.id&&priceOf(it)>0){confirmId=it.id;renderShop();return;}
   else{ME=await api('buy',CRED.name,CRED.pin,it.id);ME=await api('equip',CRED.name,CRED.pin,it.id);toast(`買到「${it.name}」，已經換上`);}
   }catch(e){toast(emsg(e));}confirmId=null;renderShop();}
 $('#bShop').onclick=()=>{confirmId=null;show('s-shop');renderShop();};
